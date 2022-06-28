@@ -1,0 +1,91 @@
+{
+  "appPageId" : "88620d9b-9546-432c-8f0d-15cf2b7104e9",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "id" : "8fb2fefc-ec86-4b6d-896b-7d235e536df3",
+  "label" : "Login",
+  "regions" : [ {
+    "components" : [ {
+      "componentAttributes" : { },
+      "componentName" : "salesforceIdentity:communityLogo2",
+      "id" : "d1c2ff9c-f8a2-4165-a5b7-2c083833ed05",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    }, {
+      "componentAttributes" : {
+        "richTextValue" : "<p style=\"textalign: center\">Clinical Order Entry App</p>"
+      },
+      "componentName" : "forceCommunity:htmlBlock",
+      "id" : "e6688840-692f-4838-8f29-bdd3cc36a473",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    }, {
+      "componentAttributes" : {
+        "forgotPasswordLabel" : "Forgot Your Password?",
+        "forgotPasswordUrl" : "/ForgotPassword",
+        "loginButtonLabel" : "Log in",
+        "passwordLabel" : "Password",
+        "selfRegisterLabel" : "Not a member?",
+        "selfRegisterUrl" : "/SelfRegister",
+        "startUrl" : "",
+        "usernameLabel" : "Username"
+      },
+      "componentName" : "salesforceIdentity:loginForm2",
+      "id" : "246f80c7-bde8-4e6b-be50-e3d7c413603d",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    }, {
+      "componentAttributes" : {
+        "richTextValue" : "<p><a href=\"/bioiq/s/login/ForgotPassword\" target=\"_self\">Forgot your password?</a></p>"
+      },
+      "componentName" : "forceCommunity:richTextInline",
+      "id" : "4d3734f2-ac9c-45d2-8237-416c1cfde6c8",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    }, {
+      "componentAttributes" : {
+        "headerText" : "",
+        "showHeader" : false,
+        "useCommunityDomainSso" : false
+      },
+      "componentName" : "salesforceIdentity:socialLogin2",
+      "id" : "9fddb89b-fb91-4554-a10f-e3b37415656b",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    }, {
+      "componentAttributes" : {
+        "employeeLoginLinkLabel" : "Are you an employee? Login here"
+      },
+      "componentName" : "salesforceIdentity:employeeLoginLink2",
+      "id" : "991686ea-6e1f-4df4-ab09-bf3762fb7412",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "e70450cc-bfbf-4b68-a03b-508e7002f8be",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "Login"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "d6dbfbcc-d6e8-44fa-98b4-353ae6147283",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "a3e47cfe-d110-408e-93bc-82f52f35ad78",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Login",
+  "type" : "view",
+  "viewType" : "login-home"
+}

@@ -1,0 +1,45 @@
+{
+  "appPageId" : "6ec2d19b-3ba1-4bbc-82c8-182fbe10550d",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "id" : "f658fcc7-5a8f-4801-9909-d2e33da0ad14",
+  "label" : "Register_Tests",
+  "regions" : [ {
+    "id" : "2f94b61b-4573-4bde-8be6-4f7f1a3bdfd4",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : { },
+      "componentName" : "c:ParticipantKitQuickSearch",
+      "id" : "809c5124-84c9-42bc-9fd6-50aaa613ee05",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "81fa2d6b-a832-49dc-a70b-fe24bb96c6a2",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "8b21d71a-e26c-4fda-9d88-0382fb58cac4",
+    "regionName" : "footer",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "Register_Tests"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "dd8c5732-d3a8-4d3a-95fe-d91ed34a0d53",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "6f883373-6fa7-4ca8-8fa1-4cacacd8390f",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "custom-register-tests"
+}

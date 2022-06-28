@@ -1,0 +1,15 @@
+{
+  "componentVariants" : [ {
+    "id" : "a29c1b71-d7f7-46be-9680-680e13963563",
+    "propertyOverrides" : {
+      "componentAttributes" : {
+        "navigationMenuEditorRefresh" : "State_of_Florida"
+      }
+    },
+    "targetId" : "2858f226-00d5-4099-8b28-576def55d03d",
+    "type" : "componentVariant"
+  } ],
+  "developerName" : "Default_Theme_Navigation_Menu_Component_Properties",
+  "id" : "ac06892f-101c-44bf-87f6-9f2124788d0f",
+  "type" : "experienceVariation"
+}

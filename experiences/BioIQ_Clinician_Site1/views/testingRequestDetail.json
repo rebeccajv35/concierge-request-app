@@ -1,0 +1,82 @@
+{
+  "appPageId" : "6ec2d19b-3ba1-4bbc-82c8-182fbe10550d",
+  "componentName" : "siteforce:sldsTwoCol84Layout",
+  "id" : "e966227e-35d3-4264-9bd9-0da1f7276221",
+  "label" : "Testing Request Detail",
+  "regions" : [ {
+    "components" : [ {
+      "componentAttributes" : {
+        "recordId" : "{!recordId}"
+      },
+      "componentName" : "forceCommunity:recordHeadline",
+      "id" : "633043bb-bf28-4ff4-9b90-3e2e6f983abc",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "2d9365e9-8521-45ca-90bd-34a05683d75c",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "recordId" : "{!recordId}"
+      },
+      "componentName" : "forceCommunity:recordDetail",
+      "id" : "bfb8ec47-45c5-47b1-9402-f1ad95ac9085",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "7ffa65d7-6fe3-4877-8bd5-2de3cf0a8517",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "2da6e547-0467-4651-9f98-7f3a0b1198e0",
+    "regionName" : "footer",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "{!Record._Object}: {!Record._Title}"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "9cc55dcd-e9a1-4bb5-9caa-61a79377e38f",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "e0ace354-9cef-4ce3-896f-12cf4108616b",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "relatedListApiName" : "Participant_Test_Request_Details__r",
+        "relatedListComponentOverride" : "GRID",
+        "width" : "SMALL"
+      },
+      "componentName" : "forceCommunity:responsiveRelatedListSingle",
+      "id" : "ce75dad3-b46e-4233-8920-090acb418f64",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    }, {
+      "componentAttributes" : {
+        "recordId" : "{!recordId}"
+      },
+      "componentName" : "c:clinicianViewFormDynamicTestRequest",
+      "id" : "0b893091-ed3a-46cd-9c36-6f3b5f4695f2",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "e5e2aad3-a57b-41d3-bacb-746e88e7c584",
+    "regionName" : "sidebar",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "detail-a4k"
+}

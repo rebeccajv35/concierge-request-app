@@ -1,0 +1,1493 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <comment>Action override created by Lightning App Builder during activation.</comment>
+        <content>Testing_Request_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <comment>Action override created by Lightning App Builder during activation.</comment>
+        <content>Testing_Request_Record_Page</content>
+        <formFactor>Small</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>true</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Order Entry request area for customers to directly request concierge and courier kits and tests run onsite.</description>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableLicensing>false</enableLicensing>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>Private</externalSharingModel>
+    <label>Testing Request</label>
+    <nameField>
+        <displayFormat>NBCUCC{0000}</displayFormat>
+        <label>Order ID</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Testing Requests</pluralLabel>
+    <recordTypeTrackHistory>false</recordTypeTrackHistory>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+    <visibility>Public</visibility>
+    <compactLayouts>
+        <fullName>Clinician_Info</fullName>
+        <fields>Clinician_Confirmed__c</fields>
+        <fields>Clinician_Partner__c</fields>
+        <fields>Clinician_Name__c</fields>
+        <fields>Clinician_Cell_Phone__c</fields>
+        <label>Clinician Info</label>
+    </compactLayouts>
+    <fields>
+        <fullName>Client__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Client</label>
+        <lookupFilter>
+            <active>true</active>
+            <filterItems>
+                <field>Account.Type</field>
+                <operation>equals</operation>
+                <value>Client</value>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
+        <referenceTo>Account</referenceTo>
+        <relationshipLabel>Testing Requests</relationshipLabel>
+        <relationshipName>Testing_Requests</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Courier__c</fullName>
+        <externalId>false</externalId>
+        <label>Courier</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>true</sorted>
+                <value>
+                    <fullName>A-1</fullName>
+                    <default>false</default>
+                    <label>A-1</label>
+                </value>
+                <value>
+                    <fullName>American Courier</fullName>
+                    <default>false</default>
+                    <label>American Courier</label>
+                </value>
+                <value>
+                    <fullName>Clinician Drop-off</fullName>
+                    <default>false</default>
+                    <label>Clinician Drop-off</label>
+                </value>
+                <value>
+                    <fullName>Dave&apos;s Courier</fullName>
+                    <default>false</default>
+                    <label>Dave&apos;s Courier</label>
+                </value>
+                <value>
+                    <fullName>QMT</fullName>
+                    <default>false</default>
+                    <label>QMT</label>
+                </value>
+                <value>
+                    <fullName>Quick International</fullName>
+                    <default>false</default>
+                    <label>Quick International</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Lab_ETA__c</fullName>
+        <description>to be completed by Courier</description>
+        <externalId>false</externalId>
+        <label>Lab ETA</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Time</type>
+    </fields>
+    <fields>
+        <fullName>File_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>File Name</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Test_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Test Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Test_Time__c</fullName>
+        <externalId>false</externalId>
+        <label>Test Time</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Time</type>
+    </fields>
+    <fields>
+        <fullName>BioIQ_Status__c</fullName>
+        <externalId>false</externalId>
+        <label>BioIQ Status</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>In Transit</fullName>
+                    <default>false</default>
+                    <label>In Transit</label>
+                </value>
+                <value>
+                    <fullName>Scheduled</fullName>
+                    <default>false</default>
+                    <label>Scheduled</label>
+                </value>
+                <value>
+                    <fullName>Cancelled - BioIQ</fullName>
+                    <default>false</default>
+                    <label>Cancelled - BioIQ</label>
+                </value>
+                <value>
+                    <fullName>Cancelled - HC Partner</fullName>
+                    <default>false</default>
+                    <label>Cancelled - HC Partner</label>
+                </value>
+                <value>
+                    <fullName>Cancelled - NBCU</fullName>
+                    <default>false</default>
+                    <label>Cancelled - NBCU</label>
+                </value>
+                <value>
+                    <fullName>Cancelled - Production</fullName>
+                    <default>false</default>
+                    <label>Cancelled - Production</label>
+                </value>
+                <value>
+                    <fullName>Clinician Pending Confirmation</fullName>
+                    <default>false</default>
+                    <label>Clinician Pending Confirmation</label>
+                </value>
+                <value>
+                    <fullName>Delivered</fullName>
+                    <default>false</default>
+                    <label>Delivered</label>
+                </value>
+                <value>
+                    <fullName>Delivered at the Lab</fullName>
+                    <default>false</default>
+                    <label>Delivered at the Lab</label>
+                </value>
+                <value>
+                    <fullName>Driver Onsite</fullName>
+                    <default>false</default>
+                    <label>Driver Onsite</label>
+                </value>
+                <value>
+                    <fullName>Scheduled/ Cancelled</fullName>
+                    <default>false</default>
+                    <label>Scheduled/ Cancelled</label>
+                </value>
+                <value>
+                    <fullName>Scheduled/ No samples to collect</fullName>
+                    <default>false</default>
+                    <label>Scheduled/ No samples to collect</label>
+                </value>
+                <value>
+                    <fullName>Scheduled/ No cooler/racks available</fullName>
+                    <default>false</default>
+                    <label>Scheduled/ No cooler/racks available</label>
+                </value>
+                <value>
+                    <fullName>Scheduled/ Pickup update requested</fullName>
+                    <default>false</default>
+                    <label>Scheduled/ Pickup update requested</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Lab_Drop_off__c</fullName>
+        <externalId>false</externalId>
+        <label>Lab Drop-off</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Unspecified</fullName>
+                    <default>false</default>
+                    <label>Unspecified</label>
+                </value>
+                <value>
+                    <fullName>Yes</fullName>
+                    <default>false</default>
+                    <label>Yes</label>
+                </value>
+                <value>
+                    <fullName>No</fullName>
+                    <default>false</default>
+                    <label>No</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>File_Uploaded__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>File Uploaded?</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Clinician_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Clinician Name</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Courier_Needed__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Courier Needed?</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Pickup_Address__c</fullName>
+        <externalId>false</externalId>
+        <label>Pickup Address</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Requestor_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Requestor Name</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Test_Date_Time__c</fullName>
+        <externalId>false</externalId>
+        <label>Test Date &amp; Time</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Test_Time_Zone__c</fullName>
+        <externalId>false</externalId>
+        <label>Test Time Zone</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>PDT</fullName>
+                    <default>false</default>
+                    <label>PDT</label>
+                </value>
+                <value>
+                    <fullName>MDT</fullName>
+                    <default>false</default>
+                    <label>MDT</label>
+                </value>
+                <value>
+                    <fullName>MST</fullName>
+                    <default>false</default>
+                    <label>MST</label>
+                </value>
+                <value>
+                    <fullName>CDT</fullName>
+                    <default>false</default>
+                    <label>CDT</label>
+                </value>
+                <value>
+                    <fullName>EST</fullName>
+                    <default>false</default>
+                    <label>EST</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Account_Company__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Production</label>
+        <lookupFilter>
+            <active>true</active>
+            <filterItems>
+                <field>$Source.Client__c</field>
+                <operation>equals</operation>
+                <valueField>Account_Company__c.Account__c</valueField>
+            </filterItems>
+            <isOptional>true</isOptional>
+        </lookupFilter>
+        <referenceTo>Account_Company__c</referenceTo>
+        <relationshipLabel>Testing Requests</relationshipLabel>
+        <relationshipName>Testing_Requests</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Number_of_Tests__c</fullName>
+        <externalId>false</externalId>
+        <label>Number of Tests</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Requestor_Email__c</fullName>
+        <externalId>false</externalId>
+        <label>Requestor Email</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Sample_Quantity__c</fullName>
+        <externalId>false</externalId>
+        <label>Sample Quantity</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Clinician_2_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Clinician 2 Name</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Clinician_Onsite__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Clinician will check this box when arriving onsite</inlineHelpText>
+        <label>Clinician Onsite</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Clinician_Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Clinician Status</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Assigned</fullName>
+                    <default>false</default>
+                    <label>Assigned</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Courier_Scenario__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Use to provide context or additional information of special instructions for the courier.</inlineHelpText>
+        <label>Courier Scenario</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Expedite_Testing__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Selecting &quot;Expediting Testing Results TAT&quot; will shorten the testing result to 12-14 Hours for Fulgent CA and Biomeme Testing upon check-in by the lab vs the standard 24 Hour resulting timeframe.
+
+NOTE: Expedited testing can result in increased costs</inlineHelpText>
+        <label>Expedite Testing</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Clinician_Partner__c</fullName>
+        <externalId>false</externalId>
+        <label>Clinician Partner</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>US Wellness</fullName>
+                    <default>false</default>
+                    <label>US Wellness</label>
+                </value>
+                <value>
+                    <fullName>Rhino</fullName>
+                    <default>false</default>
+                    <label>Rhino</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Courier_Requestor__c</fullName>
+        <externalId>false</externalId>
+        <label>Courier Requestor</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Internal (BioIQ)</fullName>
+                    <default>false</default>
+                    <label>Internal (BioIQ)</label>
+                </value>
+                <value>
+                    <fullName>US Wellness</fullName>
+                    <default>false</default>
+                    <label>US Wellness</label>
+                </value>
+                <value>
+                    <fullName>Rhino</fullName>
+                    <default>false</default>
+                    <label>Rhino</label>
+                </value>
+                <value>
+                    <fullName>Matrix</fullName>
+                    <default>false</default>
+                    <label>Matrix</label>
+                </value>
+                <value>
+                    <fullName>NBCU</fullName>
+                    <default>false</default>
+                    <label>NBCU</label>
+                </value>
+                <value>
+                    <fullName>Other</fullName>
+                    <default>false</default>
+                    <label>Other</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Lab_and_Test_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Lab and Test Type</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Accula - No Lab, Local Testing</fullName>
+                    <default>false</default>
+                    <label>Accula - No Lab, Local Testing</label>
+                </value>
+                <value>
+                    <fullName>Biomeme - Atlanta (Nasal Only)</fullName>
+                    <default>false</default>
+                    <label>Biomeme - Atlanta (Nasal Only)</label>
+                </value>
+                <value>
+                    <fullName>Biomeme - Culver City (Nasal Only)</fullName>
+                    <default>false</default>
+                    <label>Biomeme - Culver City (Nasal Only)</label>
+                </value>
+                <value>
+                    <fullName>Biomeme - New Mexico (Nasal Only)</fullName>
+                    <default>false</default>
+                    <label>Biomeme - New Mexico (Nasal Only)</label>
+                </value>
+                <value>
+                    <fullName>Biomeme - Universal Lot (Nasal Only)</fullName>
+                    <default>false</default>
+                    <label>Biomeme - Universal Lot (Nasal Only)</label>
+                </value>
+                <value>
+                    <fullName>Biomeme- Philadelphia (Nasal Only)</fullName>
+                    <default>false</default>
+                    <label>Biomeme- Philadelphia (Nasal Only)</label>
+                </value>
+                <value>
+                    <fullName>Fulgent - California (Saliva)</fullName>
+                    <default>false</default>
+                    <label>Fulgent - California (Saliva)</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Clinician_Required__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Clinician Required?</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Clinician_Confirmed__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Clinician Confirmed</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Courier_Pickup_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Courier Pickup Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Date_Results_Needed__c</fullName>
+        <externalId>false</externalId>
+        <label>Date Results Needed</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Clinician_Cell_Phone__c</fullName>
+        <externalId>false</externalId>
+        <label>Clinician Cell Phone</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Phone</type>
+    </fields>
+    <fields>
+        <fullName>Requestor_Cell_Phone__c</fullName>
+        <externalId>false</externalId>
+        <label>Requestor Cell Phone</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Phone</type>
+    </fields>
+    <fields>
+        <fullName>Clinician_2_Cell_Phone__c</fullName>
+        <externalId>false</externalId>
+        <label>Clinician 2 Cell Phone</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Phone</type>
+    </fields>
+    <fields>
+        <fullName>Comments_for_Clinician__c</fullName>
+        <externalId>false</externalId>
+        <label>Comments for Clinician</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Courier_Drop_Off_Address__c</fullName>
+        <externalId>false</externalId>
+        <label>Courier Drop-Off Address</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Courier_Drop_Off_Contact__c</fullName>
+        <externalId>false</externalId>
+        <label>Courier Drop-Off Contact</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Courier_Pickup_Time_Zone__c</fullName>
+        <externalId>false</externalId>
+        <label>Courier Pickup Time Zone</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>PDT</fullName>
+                    <default>false</default>
+                    <label>PDT</label>
+                </value>
+                <value>
+                    <fullName>MST</fullName>
+                    <default>false</default>
+                    <label>MST</label>
+                </value>
+                <value>
+                    <fullName>MDT</fullName>
+                    <default>false</default>
+                    <label>MDT</label>
+                </value>
+                <value>
+                    <fullName>CDT</fullName>
+                    <default>false</default>
+                    <label>CDT</label>
+                </value>
+                <value>
+                    <fullName>EDT</fullName>
+                    <default>false</default>
+                    <label>EDT</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Concierge_Courier_Options__c</fullName>
+        <externalId>false</externalId>
+        <label>Concierge &amp; Courier Options</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Courier Only Request</fullName>
+                    <default>false</default>
+                    <label>Courier Only Request</label>
+                </value>
+                <value>
+                    <fullName>Concierge Testing</fullName>
+                    <default>false</default>
+                    <label>Concierge Testing</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Courier_Pickup_Date_Time_UTC__c</fullName>
+        <externalId>false</externalId>
+        <formula>DATETIMEVALUE(TEXT( Courier_Pickup_Date__c ) + &quot; &quot; + LEFT(TEXT( Requested_Courier_Pickup_Time__c), 8)) + CASE(  Courier_Pickup_Time_Zone__c  , &quot;EST&quot;, 4/24, &quot;PDT&quot;, 7/24, &quot;MST&quot;, 7/24, &quot;MDT&quot;, 6/24, &quot;CDT&quot;, 5/24, 0)</formula>
+        <label>Courier Pickup Date/Time UTC</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Requested_Courier_Pickup_Time__c</fullName>
+        <externalId>false</externalId>
+        <label>Requested Courier Pickup Time</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Time</type>
+    </fields>
+    <fields>
+        <fullName>Testing_Date_Time_UTC_Formula__c</fullName>
+        <externalId>false</externalId>
+        <formula>DATETIMEVALUE(TEXT(Test_Date__c) + &quot; &quot; + LEFT(TEXT(Test_Time__c), 8)) +  CASE( Test_Time_Zone__c , &quot;EST&quot;, 4/24, &quot;PDT&quot;, 7/24, &quot;MST&quot;, 7/24, &quot;MDT&quot;, 6/24, &quot;CDT&quot;, 5/24, 0)</formula>
+        <label>Testing Date Time UTC Formula</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Onsite_Pickup_Point_of_Contact__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Who may the courier or courier team contact onsite?</inlineHelpText>
+        <label>Onsite Pickup Point of Contact</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Concierge_Test_Kit_Sample_Drop_off__c</fullName>
+        <externalId>false</externalId>
+        <label>Concierge Test Kit Sample Drop off</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Clinician Drop-Off at Lab</fullName>
+                    <default>false</default>
+                    <label>Clinician Drop-Off at Lab</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Courier_Point_of_Contact_Cell_Phone__c</fullName>
+        <externalId>false</externalId>
+        <label>Courier Point of Contact Cell Phone</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Drop_Off_Point_of_Contact_Cell_Phone__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>If you included a Drop-Off Contact, you must include a Cell Phone Number.</inlineHelpText>
+        <label>Drop-Off Point of Contact Cell Phone</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <listViews>
+        <fullName>All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <listViews>
+        <fullName>Active_Requests</fullName>
+        <columns>NAME</columns>
+        <columns>BioIQ_Status__c</columns>
+        <columns>Courier__c</columns>
+        <columns>RECORDTYPE</columns>
+        <columns>Requestor_Name__c</columns>
+        <columns>Requestor_Cell_Phone__c</columns>
+        <columns>Lab_and_Test_Type__c</columns>
+        <columns>Account_Company__c</columns>
+        <columns>Courier_Pickup_Date__c</columns>
+        <columns>Courier_Pickup_Date_Time_UTC__c</columns>
+        <columns>Courier_Pickup_Time_Zone__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>BioIQ_Status__c</field>
+            <operation>notEqual</operation>
+            <value>Cancelled - BioIQ,Cancelled - HC Partner,Cancelled - NBCU,Cancelled - Production,Delivered,Delivered at the Lab</value>
+        </filters>
+        <label>Active Requests</label>
+    </listViews>
+    <recordTypes>
+        <fullName>Courier_Request</fullName>
+        <active>true</active>
+        <label>Courier Request</label>
+        <picklistValues>
+            <picklist>BioIQ_Status__c</picklist>
+            <values>
+                <fullName>Cancelled - BioIQ</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Cancelled - HC Partner</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Cancelled - NBCU</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Cancelled - Production</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Clinician Pending Confirmation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Delivered</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Delivered at the Lab</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Driver Onsite</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Transit</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Scheduled</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Scheduled%2F Cancelled</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Scheduled%2F No cooler%2Fracks available</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Scheduled%2F No samples to collect</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Scheduled%2F Pickup update requested</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Clinician_Partner__c</picklist>
+            <values>
+                <fullName>Rhino</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>US Wellness</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Clinician_Status__c</picklist>
+            <values>
+                <fullName>Assigned</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Concierge_Courier_Options__c</picklist>
+            <values>
+                <fullName>Concierge Testing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Courier Only Request</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Concierge_Test_Kit_Sample_Drop_off__c</picklist>
+            <values>
+                <fullName>Clinician Drop-Off at Lab</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Courier_Pickup_Time_Zone__c</picklist>
+            <values>
+                <fullName>CDT</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>EDT</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>MDT</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>MST</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PDT</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Courier_Requestor__c</picklist>
+            <values>
+                <fullName>Internal %28BioIQ%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Matrix</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NBCU</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Rhino</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>US Wellness</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Courier__c</picklist>
+            <values>
+                <fullName>A-1</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>American Courier</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Clinician Drop-off</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Dave%27s Courier</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>QMT</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Quick International</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Lab_Drop_off__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unspecified</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Lab_and_Test_Type__c</picklist>
+            <values>
+                <fullName>Accula - No Lab%2C Local Testing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Biomeme - Atlanta %28Nasal Only%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Biomeme - Culver City %28Nasal Only%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Biomeme - New Mexico %28Nasal Only%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Biomeme - Universal Lot %28Nasal Only%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Biomeme- Philadelphia %28Nasal Only%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Fulgent - California %28Saliva%29</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Test_Time_Zone__c</picklist>
+            <values>
+                <fullName>CDT</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>EST</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>MDT</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>MST</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PDT</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Concierge_Testing</fullName>
+        <active>true</active>
+        <label>Concierge Testing</label>
+        <picklistValues>
+            <picklist>BioIQ_Status__c</picklist>
+            <values>
+                <fullName>Cancelled - BioIQ</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Cancelled - HC Partner</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Cancelled - NBCU</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Cancelled - Production</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Clinician Pending Confirmation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Delivered</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Delivered at the Lab</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Driver Onsite</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Transit</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Scheduled</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Scheduled%2F Cancelled</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Scheduled%2F No cooler%2Fracks available</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Scheduled%2F No samples to collect</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Scheduled%2F Pickup update requested</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Clinician_Partner__c</picklist>
+            <values>
+                <fullName>Rhino</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>US Wellness</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Clinician_Status__c</picklist>
+            <values>
+                <fullName>Assigned</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Concierge_Courier_Options__c</picklist>
+            <values>
+                <fullName>Concierge Testing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Courier Only Request</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Concierge_Test_Kit_Sample_Drop_off__c</picklist>
+            <values>
+                <fullName>Clinician Drop-Off at Lab</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Courier_Pickup_Time_Zone__c</picklist>
+            <values>
+                <fullName>CDT</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>EDT</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>MDT</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>MST</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PDT</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Courier_Requestor__c</picklist>
+            <values>
+                <fullName>Internal %28BioIQ%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Matrix</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NBCU</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Rhino</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>US Wellness</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Courier__c</picklist>
+            <values>
+                <fullName>A-1</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>American Courier</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Clinician Drop-off</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Dave%27s Courier</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>QMT</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Quick International</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Lab_Drop_off__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unspecified</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Lab_and_Test_Type__c</picklist>
+            <values>
+                <fullName>Accula - No Lab%2C Local Testing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Biomeme - Atlanta %28Nasal Only%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Biomeme - Culver City %28Nasal Only%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Biomeme - New Mexico %28Nasal Only%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Biomeme - Universal Lot %28Nasal Only%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Biomeme- Philadelphia %28Nasal Only%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Fulgent - California %28Saliva%29</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Test_Time_Zone__c</picklist>
+            <values>
+                <fullName>CDT</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>EST</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>MDT</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>MST</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PDT</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+</CustomObject>
