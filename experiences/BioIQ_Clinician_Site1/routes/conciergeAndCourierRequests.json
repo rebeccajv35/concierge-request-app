@@ -1,0 +1,11 @@
+{
+  "activeViewId" : "40bd5948-2e6c-4ddb-84b9-b10f14392694",
+  "appPageId" : "6ec2d19b-3ba1-4bbc-82c8-182fbe10550d",
+  "configurationTags" : [ ],
+  "id" : "95a5be8d-0951-4745-ac27-e92495b9b8e6",
+  "label" : "Concierge and Courier Requests",
+  "pageAccess" : "Public",
+  "routeType" : "custom-concierge-and-courier-requests",
+  "type" : "route",
+  "urlPrefix" : "concierge-and-courier-requests"
+}

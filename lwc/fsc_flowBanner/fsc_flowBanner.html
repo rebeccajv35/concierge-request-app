@@ -1,0 +1,77 @@
+<!-- 
+    
+Lightning Web Component for Flow Custom Property Editors:     fsc_flowBanner
+
+This component allows the developer to display a Header/Banner in a Custom Property Editor
+
+    It provides a way to create sections and add separation between different functional areas 
+    of a Custom Property Editor LWC.  The component also supports a link to informational or 
+    help text for the section.
+
+    Find complete instructions at https://unofficialsf.com/banner-component-for-custom-property-editors/
+
+CREATED BY:         Eric Smith
+
+VERSION:            1.0.0
+
+RELEASE NOTES:      
+
+11/28/20 -          Eric Smith -    Version 1.0.0
+
+-->
+
+<template>
+    <!-- =============== Flow Banner =============== -->
+    <div style={bannerStyle} class={bannerMargin}>
+        <h1 class={bannerClass}>{bannerLabel}
+            <span class="slds-float_right">
+                <lightning-button-icon 
+                    icon-name={bannerIcon} 
+                    size={bannerIconSize} 
+                    variant={bannerVariant} 
+                    title={bannerTitle} 
+                    alternative-text={bannerAltText}
+                    onclick={showModal}
+                ></lightning-button-icon>
+            </span>
+        </h1>
+    </div>
+
+    <!-- =============== Information Modal =============== -->
+    <template if:true={openBannerModal}>
+        <div class="slds-modal slds-modal_small slds-fade-in-open slds-backdrop">
+            <div class="slds-modal__container">
+
+                <!-- Header Section -->
+                <div class="slds-modal__header">
+                    <lightning-button-icon icon-name="utility:close"
+                        alternative-text="Close this window" size="large" variant="bare-inverse"
+                        onclick={closeModal} class="slds-modal__close">
+                    </lightning-button-icon>
+                    <h2 class="slds-modal__title slds-hyphenate slds-text-color_inverse">Information Screen for {bannerLabel}</h2>
+                </div>
+
+                <!-- Body Section -->
+                <div class="slds-modal__content slds-p-around_medium">
+                    <template for:each={bannerInfo} for:item="attribute">
+                        <div key={attribute.label}>
+                            <strong>{attribute.label}</strong>
+                            <div>{attribute.helpText}</div>
+                            <br>
+                        </div>
+                    </template>
+                </div>
+
+                <!-- Footer Section -->
+                <div class="slds-modal__footer slds-modal__footer_directional">
+                    <lightning-button label="Close Screen" variant="neutral"
+                        icon-name="utility:close" 
+                        onclick={closeModal}>
+                    </lightning-button>
+                </div>
+
+            </div>
+        </div>
+    </template>
+
+</template>

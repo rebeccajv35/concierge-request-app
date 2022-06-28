@@ -1,0 +1,112 @@
+{
+  "appPageId" : "6ec2d19b-3ba1-4bbc-82c8-182fbe10550d",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "id" : "40bd5948-2e6c-4ddb-84b9-b10f14392694",
+  "label" : "Concierge and Courier Requests",
+  "regions" : [ {
+    "components" : [ {
+      "componentAttributes" : {
+        "richTextValue" : "<h1>Concierge and Courier Requests</h1>\n<p>Please use the following form to input a request with the details needed for testing.</p><br/>\n<p>Based on your selection, you will be asked to complete additional information.</p><br/>\n<p>If you have any questions or comments, please email concierge@bioiq.com.</p>"
+      },
+      "componentName" : "forceCommunity:htmlBlock",
+      "id" : "cb3326d8-4371-46bd-9582-6b0540ecb061",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "f6d4aa28-fe1c-4a00-83d9-3a94b1013af5",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "enableInlineEdit" : false,
+        "filterName" : "00B7j000001QJNFEA4",
+        "layout" : "FULL",
+        "pageSize" : 25,
+        "scope" : "Testing_Request__c",
+        "showActionBar" : false,
+        "showChartsPanel" : false,
+        "showDisplay" : "grid",
+        "showFilterPanel" : false,
+        "showImageIcon" : false,
+        "showManualRefreshButton" : true,
+        "showObjectName" : false,
+        "showPinnedList" : false,
+        "showSearchBar" : false
+      },
+      "componentName" : "forceCommunity:objectHome",
+      "id" : "7a5d78e3-dcc2-4518-a0d1-4a6fc9a2bde4",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "e1fa0e54-5602-4248-b0e8-0ce027e48a08",
+    "regionName" : "sidebar",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "AutoStart" : false,
+        "Clicked" : false,
+        "CreateObject" : "",
+        "CreateRecordtypeId" : "",
+        "EditRecord" : false,
+        "FlowAction" : "",
+        "FlowName" : "",
+        "FlowRecordId" : "",
+        "Label" : "View Existing Requests",
+        "LastElement" : false,
+        "NavigateToUrl" : "/s/testing-request/Testing_Request__c/Default",
+        "OutputCreatedID" : "false",
+        "QuickActionName" : "",
+        "buttonPosition" : "left",
+        "buttonStyle" : "",
+        "buttonVarient" : "brand",
+        "defaultFieldValues" : "",
+        "specificrecordId" : ""
+      },
+      "componentName" : "navbutton:NavigationButton",
+      "id" : "3c759bb6-4822-449d-9301-4b506e48a5bb",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    }, {
+      "componentAttributes" : {
+        "flowArguments" : "[]",
+        "flowLayout" : "twoColumn",
+        "flowName" : "Concierge_Courier_Requests"
+      },
+      "componentName" : "forceCommunity:flowCommunity",
+      "id" : "d4be9032-7c40-4ca7-90ee-d2df6af502c8",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "6d99145d-eb42-4bdf-90d6-675fa65f4f4d",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "e27461da-4248-47b7-8109-3bcfc40d9f0f",
+    "regionName" : "footer",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "Concierge and Courier Requests"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "1dfd153b-7265-4d40-b9cb-9b0b9c315364",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "ae702312-8b2d-40f4-9f98-86604488e1c7",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "custom-concierge-and-courier-requests"
+}

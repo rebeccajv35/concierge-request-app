@@ -1,0 +1,3 @@
+<apex:page standardController="Program_Project__c" extensions="JCFS.GenericObjectController">
+    <JCFS:JiraIssuesComponent son="{!son}" soid="{!soid}"></JCFS:JiraIssuesComponent>
+</apex:page>

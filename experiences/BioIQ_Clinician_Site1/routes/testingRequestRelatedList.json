@@ -1,0 +1,11 @@
+{
+  "activeViewId" : "26166515-fcd2-4ac0-a2de-712905ad56c7",
+  "appPageId" : "6ec2d19b-3ba1-4bbc-82c8-182fbe10550d",
+  "configurationTags" : [ ],
+  "id" : "47520116-a36c-49fe-8709-18dbbedd5073",
+  "label" : "Testing Request Related List",
+  "objectApiName" : "Testing_Request__c",
+  "routeType" : "relatedlist-a4k",
+  "type" : "route",
+  "urlPrefix" : "testing-request"
+}

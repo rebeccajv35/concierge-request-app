@@ -1,0 +1,88 @@
+.THIS {
+    font-size: .95rem !important;
+}
+
+
+.THIS {
+}
+
+.THIS input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0; 
+}
+
+.THIS input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0; 
+}
+
+.THIS #cardLookupWrapper {
+    z-index: 500;
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    background-color: #FFF;
+    width: 100%;
+    height: 100%;
+   
+}
+
+.THIS #cardLookupContainer {
+    padding: 10px;
+   
+}
+
+.THIS .scrollableWrap{
+    width: 100%;
+    height: 600px !important;
+}
+.THIS .scrollableinnerWrap{
+    min-height: 101%;
+    padding-bottom: 20px;
+}
+
+.THIS .scrollableWrapLines{
+    width: 100%;
+    height: 300px !important;
+}
+.THIS .scrollableinnerWrap{
+    min-height: 101%;
+    padding-bottom: 20px;
+}
+
+
+.THIS .inputMarginFix {
+    margin-top: .5rem !important;
+}
+
+.THIS .customWidthChild > div {
+    width: 90% !important;
+}
+
+.THIS.main-container-wrap {
+	padding: 10px;
+	background-color: #FFF !important;
+}
+
+.THIS .clsFieldset {    
+    margin-left: 2px;
+    margin-right: 2px;
+    padding-top: 0.35em;
+    padding-bottom: 0.625em;
+    padding-left: 0.75em;
+    padding-right: 0.75em;
+    border:solid 1px Gray;
+    border-radius:5px;
+   
+ }
+ 
+ .THIS .clsLegend {    
+    padding-left: 2px;
+    padding-right: 2px;
+    border: none;
+  
+ }

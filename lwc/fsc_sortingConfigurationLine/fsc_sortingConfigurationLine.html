@@ -1,0 +1,48 @@
+<template>
+    <template if:true={isFirstItem}>
+        <div>First, sort by:</div>
+    </template>
+    <template if:false={isFirstItem}>
+        <div>Then sort by:</div>
+    </template>
+    
+    <lightning-layout>
+        <lightning-layout-item size="6" padding="horizontal-small">
+            <div class="slds-is-relative">
+                <lightning-input label="field" type="search" autocomplete="off" 
+                onfocus={openAvailableFields} onblur={closeAvailableFields}
+                onchange={openAndSearchFields} value={fieldLabel}></lightning-input>
+                <template if:true={isAvailableFieldsOpen}>
+                    <div id="listbox2" class="slds-dropdown slds-dropdown_length-with-icon-7 slds-dropdown_fluid zIndex" role="listbox" onmousedown={preventCloseFields}>
+                        <ul class="slds-listbox slds-listbox_vertical min-height" role="presentation">
+                            <template if:false={fieldList}>
+                                <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+                            </template>
+                            <template if:true={availableFieldList.length}>
+                                <template for:each={availableFieldList} for:item="item">
+                                    <li role="presentation" class="slds-listbox__item" key={item.name} 
+                                    onmousedown={preventCloseFields} onclick={chooseField} data-id={item.name} data-name={item.label}>
+                                        <div class="slds-media slds-listbox__option slds-listbox__option_entity slds-listbox__option_has-meta" role="option">
+                                        <span class="slds-media__body">
+                                            <span class="slds-listbox__option-text slds-listbox__option-text_entity">{item.label}</span>
+                                        </span>
+                                        </div>
+                                    </li>
+                                </template>
+                            </template>
+                           
+                        </ul>
+                    </div>
+                </template>
+            </div>
+        </lightning-layout-item>
+        <lightning-layout-item size="6" padding="horizontal-small">
+            <lightning-combobox 
+                label="Sorting"
+                options={sortingDeriectionOptions} 
+                onchange={changeOrderDirection} 
+                value={sortingDirection}>
+            </lightning-combobox>
+        </lightning-layout-item>
+    </lightning-layout>
+</template>

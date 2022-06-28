@@ -1,0 +1,15 @@
+<aura:component implements="flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes" access="global" >
+
+   <aura:attribute name="currentStage" type="Object"/>
+   <aura:attribute name="activeStages" type="Object[]"/>
+
+   <!-- Get flow name from the Lightning App Builder -->
+   <aura:attribute name="flowName" type="String"/>
+
+   <aura:handler name="init" value="{!this}" action="{!c.init}"/>
+   <article class="slds-card">
+      <lightning:progressIndicator aura:id="progressIndicator" 
+         currentStep="{!v.currentStage.name}" type="path"/>
+        <lightning:flow aura:id="flow" onstatuschange="{!c.statusChange}"/>
+   </article>
+</aura:component>

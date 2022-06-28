@@ -1,0 +1,70 @@
+{
+  "appPageId" : "6ec2d19b-3ba1-4bbc-82c8-182fbe10550d",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "id" : "1c586346-66fb-4fc6-9c02-15f93064a360",
+  "label" : "Report List",
+  "regions" : [ {
+    "id" : "c14eb9a8-64e4-4f58-818d-f2ba006736cf",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : { },
+      "componentName" : "forceCommunity:reportList",
+      "id" : "fc361797-969e-4f71-a4e6-e68fff11a758",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "227b9d48-435a-4729-b84a-da38e042e0ba",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "allowPrepopulatePrechatFields" : true,
+        "avatarImgURL" : "",
+        "codeSettingsName" : "",
+        "defaultMinimizedText" : "Chat with an Expert",
+        "displayHelpButton" : true,
+        "eswConfigurationJSON" : {
+          "baseCoreURL" : "https://bioiq.my.salesforce.com",
+          "baseLiveAgentContentURL" : "https://c.la3-c1-ph2.salesforceliveagent.com/content",
+          "baseLiveAgentURL" : "https://d.la3-c1-ph2.salesforceliveagent.com/chat",
+          "buttonId" : "5732H000000PBca",
+          "deploymentId" : "5722H000000PBbS",
+          "enabledFeatures" : [ "LiveAgent" ],
+          "entryFeature" : "LiveAgent",
+          "eswConfigDevName" : "Adobe_Portal",
+          "eswConfigId" : "04I2H000000PAsSUAW",
+          "eswLiveAgentDevName" : "EmbeddedServiceLiveAgent_Parent04I2H000000PAsSUAW_171d1fffb35",
+          "gslbBaseURL" : "https://service.force.com",
+          "isOfflineCasesEnabled" : "1",
+          "orgId" : "00D80000000PXC4"
+        },
+        "externalScripts" : "",
+        "externalStyles" : "",
+        "fallbackRouting" : "",
+        "offlineSupportMinimizedText" : "Contact Us",
+        "offlineText" : "Agent Offline",
+        "onlineLoadingText" : "Loading",
+        "prechatBackgroundImgURL" : "",
+        "smallCompanyLogoImgURL" : "",
+        "snippetSettingsFile" : "",
+        "storageDomain" : "",
+        "waitingStateBackgroundImgURL" : ""
+      },
+      "componentName" : "forceCommunity:embeddedService",
+      "id" : "8a6614d8-f215-41a2-8a44-8ff10153d4c7",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "5e09ca75-aaed-4518-bc12-68e8561606a4",
+    "regionName" : "footer",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "list-00O"
+}

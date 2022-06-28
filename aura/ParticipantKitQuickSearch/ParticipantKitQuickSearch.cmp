@@ -1,0 +1,2116 @@
+<aura:component controller="ParticipantKitQuickController" description="Participant Kit Locator"
+                implements="forceCommunity:availableForAllPageTypes,force:lightningQuickActionWithoutHeader,flexipage:availableForAllPageTypes,lightning:actionOverride,force:appHostable,force:hasRecordId,force:hasSObjectName,lightning:availableForFlowScreens"
+                access="global">        
+    <aura:attribute name="isPortalUser" type="Boolean" default="true"/>
+    <aura:attribute name="companyId" type="Id"/>
+    <aura:attribute name="facilityId" type="Id"/>
+    <aura:attribute name="programId" type="Id"/>
+    <aura:attribute name="physicianId" type="Id"/>
+    
+    <aura:attribute name="genderOptions" type="List" default="[{'label':'--Please Select--','value':''},{'label':'M','value':'M'},{'label':'F','value':'F'},{'label':'U','value':'U'}]" />
+    <aura:attribute name="isProgramSingle" type="Boolean" default="false" />
+    <aura:attribute name="isCompanySingle" type="Boolean" default="false" />
+    <aura:attribute name="isFacilitySingle" type="Boolean" default="false" />
+    <aura:attribute name="isPhysicianSingle" type = "Boolean" default="false" />
+    <aura:attribute name="isOther" type="Boolean" default="false" />
+    
+    <aura:attribute name="hasCompany" type="Boolean" default="false" />
+    <aura:attribute name="hasFacility" type="Boolean" default="false" />
+    
+    <aura:attribute name="accountName" type="String"/>
+    <aura:attribute name="programName" type="String"/>
+    <aura:attribute name="companyName" type="String"/>
+    <aura:attribute name="facilityName" type="String"/>
+    <aura:attribute name="physicianName" type="String"/>
+    <aura:attribute name="discardedReasonLabel" type="String"/>
+    
+    <aura:attribute name="account" type="Account" default="{ sobjectType: 'Account' }" />
+    <aura:attribute name="participants" type="List"   />
+    <aura:attribute name="contacts" type="List" />
+    <aura:attribute name="availableAccounts" type="List" />
+    
+    <aura:attribute name="recordId" type="Id" />
+    <aura:attribute name="kitLocator" type="Kit_Locator__c" default="{ sobjectType: 'Kit_Locator__c' }" />
+    <aura:attribute name="selectedKitLocator" type="Kit_Locator__c" default=" { sobjectType: 'Kit_Locator__c' }" />
+    <aura:attribute name="kitSearchName" type="String" />
+    
+	<aura:attribute name="data" type="Object"/>
+    <aura:attribute name="kitList" type="Kit_Locator__c[]"/>
+    <aura:attribute name="columns" type="List"/>
+
+    <aura:attribute name="rawData" type="Object" access="PRIVATE" />    
+    
+    <aura:attribute name="displayValues" type="Map" />
+    <aura:attribute name="picklists" type="Map" />
+    <aura:attribute name="companyOptions" type="Map" />
+    
+    <aura:attribute name="prefix" type="String" />
+    <aura:attribute name="currentUser" type="User" />
+    <aura:attribute name="showSpinner" type="Boolean" default="false" />
+    <aura:attribute name="today" type="Date" />
+    
+    
+    
+    <aura:attribute name="errorMessages" type="List" />
+    <aura:attribute name="showAlertError" type="Boolean" default="false" />
+    
+    
+    <aura:attribute name="participantSearchFirstName" type="String"  />
+    <aura:attribute name="participantSearchLastName" type="String"  />
+    <aura:attribute name="participantSearchEmployeeId" type="String"  />
+    <aura:attribute name="participantSearchDOB" type="Date"  />
+    <aura:attribute name="participantSearchEmail" type="String" />
+    <aura:attribute name="isSearchSuggestion" type="Boolean" default="false" />
+    <aura:attribute name="fieldCustomizations" type="Map"  />
+    
+    <aura:attribute name="participant" type="Program_Participant__c"  default="{ sobjectType: 'Program_Participant__c' }" />
+    <aura:attribute name="participantKits" type="List"   />
+    <aura:attribute name="kitSaved" type="Boolean" default="false"   />
+    
+    <aura:attribute name="participantKit" type="Kit_Locator__c" default="{ sobjectType: 'Kit_Locator__c' }" />
+    <aura:attribute name="kitLocatorNotValid" type="Boolean" default="false"   />
+    <aura:attribute name="kitLocatorNotValidMessage" type="String"   />
+    <aura:attribute name="kitQuickSearchNotValid" type="Boolean" default="false"   />
+    <aura:attribute name="kitLocatorReEnter" type="String" />
+    
+    <aura:attribute name="canSearch" type="Boolean" default="true"   />
+    <aura:attribute name="searchErrorMessages" type="List"   />
+    <aura:attribute name="canEnrollNew" type="Boolean" default="false"   />
+    <aura:attribute name="updatePII" type="Boolean" default="false" />
+    <aura:handler name="init" action="{!c.doInitialize}" value="{!this}"></aura:handler>
+    <aura:handler name="ObjectLookupEvent" event="c:ObjectLookupEvent" action="{!c.handleObjectLookupEvent}" />
+    
+    <aura:if isTrue="{!v.showSpinner}">
+        <lightning:spinner variant="brand" size="large" aura:id="loadingSpinner" />
+    </aura:if>
+   
+<!-- Home Page Components -->
+    <div style=" margin-left: auto;margin-right: auto;width:600px">
+        <div style=" border:solid 1px lightgray; border-radius:5px;">
+            <div class="slds-page-header">
+                <div class="slds-grid">
+                    <div class="slds-col slds-has-flexi-truncate">
+                        <div class="slds-media slds-no-space slds-grow">
+                            <div class="slds-media__figure">
+                                <lightning:icon iconName="standard:visits"></lightning:icon>
+                            </div>
+                            <div class="slds-media__body">
+                                <p class="slds-text-title--caps slds-line-height--reset">{!v.account.Name}</p>
+                                <h1 class="slds-page-header__title slds-m-right--small slds-align-middle slds-truncate"
+                                    title="Find a Participant">Participant Kit Utilization</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--start body-->
+            <!--setting 1st search parameters -->
+            <div class="slds-form slds-form_stacked">
+                <aura:if isTrue="{!v.isPortalUser == false}">
+                <div class="slds-form-element">
+                    <c:ObjectLookup 
+                    sObjectAPIName="Account" 
+                    whereClause="AND Type in ('Prospect', 'Client')"
+                    searchLabel="Account"
+                    selectedRecordName="{!v.accountName}" 
+                    selectedRecordId="{!v.account.Id}"
+                    displayFieldA="Type" 
+                    required="false" />
+
+                </div>
+                </aura:if>
+             <!--Select Program Dropdown Box-->
+                <aura:if isTrue="{!v.account.Id != null}">  
+                    <div class="slds-form-element">
+                        <aura:if isTrue="{!and(v.programName != null, v.picklists.Program_Options == null)}">
+                            <div style="padding:1px;font-size: .95rem">
+                                Active Program<br/><b>{!v.programName}</b>
+                            </div>
+                        </aura:if>
+                        <aura:if isTrue="{!v.picklists.Program_Options != null}">
+                            <lightning:select label="Active Program" 
+                                              onchange="{!c.doSelectProgram}" value="{!v.programId}" required="true">
+                                <aura:iteration items="{!v.picklists.Program_Options}" var="option">
+                                    <option value="{!option.value}">{!option.label}</option>
+                                </aura:iteration>
+                            </lightning:select>
+                        </aura:if>
+                    </div>
+             <!--Select Group Dropdown Box-->       
+                    <aura:if isTrue="{!v.programId != null}">
+                        <div class="slds-form-element">
+                            <aura:if isTrue="{!and(v.companyName != null, v.picklists.Company_Options == null)}">
+                                <div style="padding:1px;font-size: .95rem;">
+                                    Group<br/><b>{!v.companyName}</b>
+                                </div>
+                            </aura:if>
+                            <aura:if isTrue="{!v.picklists.Company_Options != null}">
+                                <lightning:select label="Group" 
+                                                  value="{!v.companyId}"
+                                                  onchange="{!c.doSelectCompany}">
+                                    <aura:iteration items="{!v.picklists.Company_Options}" var="option">
+                                        <option value="{!option.value}">{!option.label}</option>
+                                    </aura:iteration>
+                                </lightning:select>
+                            </aura:if>
+                        </div>
+                    </aura:if>
+             <!--Select Location Dropdown Box-->       
+                    <aura:if isTrue="{!v.companyId != null}">
+                        <div class="slds-form-element">
+                            <aura:if isTrue="{!and(v.facilityName, v.picklists.Facility_Options == null)}">
+                                <div style="padding:1px;font-size: .95rem;">
+                                    Location<br/><b>{!v.facilityName}</b>
+                                </div>
+                            </aura:if>
+                            <aura:if isTrue="{!v.picklists.Facility_Options != null}">
+                                <lightning:select class="ddLabel" label="Location" onchange="{!c.doSelectFacility}" value="{!v.facilityId}">
+                                    <aura:iteration items="{!v.picklists.Facility_Options}" var="option">
+                                        <option value="{!option.value}">{!option.label}</option>
+                                    </aura:iteration>
+                                </lightning:select>
+                            </aura:if>
+                        </div>
+                    </aura:if>
+                </aura:if>
+            </div>
+            
+            <!--search parameters error message -->
+            <aura:if isTrue="{!v.canSearch == false}">
+                <div class="slds-m-around_medium">
+                    <aura:iteration items="{!v.searchErrorMessages}" var="err">
+                        <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error"
+                             role="alert">
+                            <span class="slds-assistive-text">error</span>
+                            <span class="slds-icon_container slds-icon-utility-ban slds-m-right_x-small"
+                                  title="Description of icon when needed">
+                                <lightning:icon iconName="utility:ban" variant="inverse" size="x-small">
+                                </lightning:icon>
+                            </span>
+                            <h2>{!err.title}: {!err.message}</h2>
+                        </div>
+                    </aura:iteration>
+                </div>
+            </aura:if>
+            
+            <!-- search button -->
+            <div style="padding:5px">
+                <div class="slds-col slds-no-flex ">
+                    <div class="slds-button-group" role="group">
+                        <button  class="slds-button slds-button_brand" onclick="{!c.showParticipantSearch}">GO!</button>
+                    </div>
+                </div>
+                <br />
+            </div>
+        </div>
+        
+        
+        <br/>
+        <br/>
+        
+        <!-- Find a Kit Search Component -->
+        <div style="border:solid 1px lightgray; border-radius:5px;">
+            <div class="slds-page-header">
+                <div class="slds-grid">
+                    <div class="slds-col slds-has-flexi-truncate">
+                        <div class="slds-media slds-no-space slds-grow">
+                            <div class="slds-media__figure">
+                                <lightning:icon iconName="standard:product"></lightning:icon>
+                            </div>
+                            <div class="slds-media__body">
+                                <p class="slds-text-title--caps slds-line-height--reset">{!v.account.Name}</p>
+                                <h1 class="slds-page-header__title slds-m-right--small slds-align-middle slds-truncate"
+                                    title="Find a Kit">Find a Kit</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--start body-->
+            <div class="slds-form slds-form_stacked">
+                <div class="slds-form-element">
+                    <div class="slds-form-element">
+                        <lightning:input   autocomplete="off"  label="Locator"  name="kitSearchName" value="{!v.kitSearchName}" ></lightning:input>
+                        
+                    </div>
+                </div>
+                <aura:if isTrue="{!v.kitQuickSearchNotValid == true}">
+                    <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_info"
+                         role="alert">
+                        <span class="slds-assistive-text">info</span>
+                        <span class="slds-icon_container slds-icon-utility-ban slds-m-right_x-small"
+                              title="Description of icon when needed">
+                            <lightning:icon iconName="utility:warning" variant="inverse" size="medium">
+                            </lightning:icon>
+                        </span>
+                        <h2>The kit you entered has not been assigned to a participant yet. Please enter a different kit locator number.
+                        </h2>
+                    </div>
+                </aura:if>
+            </div>
+            
+            <div style="padding:5px">
+                
+                <div class="slds-col slds-no-flex ">
+                    <div class="slds-button-group" role="group">
+                        
+                        <button  class="slds-button slds-button_brand" onclick="{!c.doKitSearch}">GO!</button>
+                        
+                    </div>
+                </div>
+                <br />
+            </div>
+        </div>
+    </div>
+      
+    
+<!-- Kit Search Result window popup from Find a Kit -->
+    <div aura:id="modalWindowKit" class="slds-hide">
+        
+        <section role="dialog" tabindex="-1" aria-labelledby="searchModalWindowHeader" aria-describedby="searchModalWindowContent"
+                 class="slds-modal slds-fade-in-open slds-modal_large">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <h2 id="tissueModalWindowHeader" class="slds-text-heading_medium slds-hyphenate">
+                        <div class="slds-page-header">
+                            <div class="slds-grid">
+                                <div class="slds-col slds-has-flexi-truncate">
+                                    <div class="slds-media slds-no-space slds-grow">
+                                        <div class="slds-media__figure">
+                                            <lightning:icon iconName="standard:product"></lightning:icon>
+                                        </div>
+                                        <div class="slds-media__body">
+                                            <p class="slds-text-title--caps slds-line-height--reset">Utilization information on kit</p>
+                                            <h1 class="slds-page-header__title slds-m-right--small slds-align-middle slds-truncate"
+                                                title="Find a Kit">{!v.kitSearchName}</h1>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="participantSearchModalWindowContent">
+                    <table class="slds-table slds-table_bordered">
+                        <thead>
+                            <tr class="slds-text-title_caps">
+                                
+                                <th scope="col">Date Ordered</th>
+                                <th scope="col">Date Resulted</th>
+                                <th scope="col">Entered By</th>
+                                
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                            <tr>
+                                <td>
+                                    <div class="slds-truncate">
+                                        {!v.kitLocator.Date_Ordered__c}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="slds-truncate">
+                                        {!v.kitLocator.Date_Resulted__c}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="slds-truncate">
+                                        {!v.kitLocator.Entered_By__c}
+                                    </div>
+                                </td>
+                                
+                            </tr>
+                            
+                        </tbody>
+                    </table>
+                    <br/>
+                    <article class="slds-card_boundary related_list_card_border_top forceRelatedListCardDesktop">
+                        <div class="slds-card__header slds-grid related_list_themed_border_top">
+                            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                                <div class="slds-media__figure">
+                                    <lightning:icon iconName="standard:visits" size="large"></lightning:icon>
+                                </div>
+                                <div class="slds-media__body">
+                                    <div class="slds-text-heading_small"><b>{!v.kitLocator.Program_Participant__r.Participant__r.LastName},&nbsp;{!v.kitLocator.Program_Participant__r.Participant__r.FirstName}</b>
+                                        <aura:if isTrue="{!v.kitLocator.Program_Participant__r.Participant__r.Gender__c != null}">
+                                            &nbsp;&nbsp;<b>[{!v.kitLocator.Program_Participant__r.Participant__r.Gender__c}]</b>
+                                        </aura:if>
+                                        <br/>
+                                        <aura:if isTrue="{!v.kitLocator.Program_Participant__r.Participant__r.Birthdate != null}">
+                                            DOB: {!v.kitLocator.Program_Participant__r.Participant__r.Birthdate}<br/>
+                                        </aura:if>
+                                            Email: {!v.kitLocator.Program_Participant__r.Participant__r.Email}
+                                    </div>
+                                </div>
+                            </header>
+                            <div class="slds-no-flex">
+                                <lightning:buttonIcon iconName="utility:search"  onclick="{! c.doSelectParticipantFromKit }"  value="{!v.kitLocator.Program_Participant__r}" alternativeText="Select" />
+                            </div>
+                        </div>
+                        <div class="slds-card__body slds-card__body_inner">
+                            <aura:if isTrue="{!v.kitLocator.Program_Participant__r.Participant__r.MailingStreet != null}">
+                                {!v.kitLocator.Program_Participant__r.Participant__r.MailingStreet}<br/>
+                            </aura:if>
+                            <aura:if isTrue="{!v.kitLocator.Program_Participant__r.Participant__r.MailingCity != null}">
+                                {!v.kitLocator.Program_Participant__r.Participant__r.MailingCity}, &nbsp;
+                            </aura:if>
+                            <aura:if isTrue="{!v.kitLocator.Program_Participant__r.Participant__r.MailingState != null}">
+                                {!v.kitLocator.Program_Participant__r.Participant__r.MailingState} &nbsp;&nbsp;
+                            </aura:if>
+                            <aura:if isTrue="{!v.kitLocator.Program_Participant__r.Participant__r.MailingPostalCode != null}">
+                                {!v.kitLocator.Program_Participant__r.Participant__r.MailingPostalCode}
+                            </aura:if>
+                            <br/>
+                            <aura:if isTrue="{!and(v.fieldCustomizations.Participant_Id != null, v.fieldCustomizations.Participant_Id.isVisible == true)}">            
+                                <aura:if isTrue="{!v.kitLocator.Program_Participant__r.Participant__r.Employee_Id__c != null}">
+                                    EID: {!v.kitLocator.Program_Participant__r.Participant__r.Employee_Id__c}<br/>
+                                </aura:if>
+                            </aura:if>
+                            <b><span style="color:#00B4E6">{!v.kitLocator.Program_Participant__r.Program__r.Program_Name__c} 
+                                <aura:if isTrue="{!v.kitLocator.Program_Participant__r.Account_Company__r.Name != null}">&nbsp;|&nbsp;{!v.kitLocator.Program_Participant__r.Account_Company__r.Name}</aura:if>
+                                <aura:if isTrue="{!v.kitLocator.Program_Participant__r.Company_Facility__r.Name != null}">&nbsp;|&nbsp;{!v.kitLocator.Program_Participant__r.Company_Facility__r.Name}</aura:if>
+                                </span></b>
+                        </div>
+                    </article>
+                    
+                </div>
+                <footer class="slds-modal__footer">
+                    <button class="slds-button slds-button_destructive" onclick="{!c.doCloseKitSearch}" >Close</button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </div>
+   
+    
+<!-- Begin search participant window from Find a Participant -->
+    <div aura:id="modalWindowParticipantSearch" class="slds-hide">
+        
+        <section role="dialog" tabindex="-1" aria-labelledby="searchModalWindowHeader" aria-describedby="searchModalWindowContent"
+                 class="slds-modal slds-fade-in-open slds-modal_large">
+            <div class="slds-modal__container">
+<!-- Participant Search Modal Header -->
+                <aura:if isTrue="{!v.showSpinner}">
+                    <lightning:spinner variant="brand" size="large" aura:id="loadingSpinner" />
+                </aura:if>
+                <header class="slds-modal__header">
+                    <aura:if isTrue="{!v.participant == null}">
+                        <h2 id="tissueModalWindowHeader" class="slds-text-heading_small slds-hyphenate">
+                            Participant Lookup for program {!v.programName} 
+                            <aura:if isTrue="{!v.companyName != null}">&nbsp;|&nbsp;{!v.companyName}</aura:if>
+                            <aura:if isTrue="{!v.facilityName != null}">&nbsp;|&nbsp;{!v.facilityName}</aura:if> 
+                        </h2>
+                    </aura:if>
+                    <aura:if isTrue="{!v.participant != null}">
+                        <div class="slds-page-header">
+                            <div class="slds-grid">
+                                <div class="slds-col slds-has-flexi-truncate">
+                                    <div class="slds-media slds-no-space slds-grow">
+                                        <div class="slds-media__figure">
+                                            <lightning:icon iconName="standard:visits"></lightning:icon>
+                                        </div>
+                                        <div class="slds-media__body">
+                                            
+                                            <h1 class="slds-page-header__title slds-m-right--small slds-align-left slds-truncate"
+                                                title="Find a Participant">
+                                                <aura:if isTrue="{!v.participant.Participant__r.FirstName != null}">
+                                                    {!v.participant.Participant__r.FirstName}&nbsp;{!v.participant.Participant__r.LastName}
+                                                </aura:if>
+                                                <aura:if isTrue="{!v.participant.Participant__r.FirstName == null}">
+                                                    Program Participant
+                                                </aura:if>
+                                                &nbsp;{!v.programName}
+                                                <aura:if isTrue="{!v.companyName != null}">&nbsp;|&nbsp;{!v.companyName}</aura:if>
+                                                <aura:if isTrue="{!v.facilityName != null}">&nbsp;|&nbsp;{!v.facilityName}</aura:if></h1>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </aura:if>
+                </header>
+              
+<!--Participant Search Modal Body -->
+                <div class="slds-modal__content slds-p-around_medium" id="participantSearchModalWindowContent">
+                    
+                    <aura:if isTrue="{!v.showAlertError}">
+                        <div class="slds-m-around_medium">
+                            <aura:iteration items="{!v.errorMessages}" var="err">
+                                <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error"
+                                     role="alert">
+                                    <span class="slds-assistive-text">error</span>
+                                    <span class="slds-icon_container slds-icon-utility-ban slds-m-right_x-small"
+                                          title="Description of icon when needed">
+                                        <lightning:icon iconName="utility:ban" variant="inverse" size="x-small">
+                                        </lightning:icon>
+                                    </span>
+                                    <h2>{!err.title}: {!err.message}</h2>
+                                </div>
+                            </aura:iteration>
+                        </div>
+                    </aura:if>
+                    
+<!--input area for demographic search fields -->
+                    <aura:if isTrue="{!v.participant == null}">
+                        <div class="slds-form slds-form_stacked">
+                            <div class="slds-form-element__row slds-grid">
+                                <div class="slds-form-element slds-size_1-of-2">
+                                    <div class="slds-form-element__control slds-p-right_small">
+                                        <lightning:input label="First Name" aura:id="firstNameSearch" value="{!v.participantSearchFirstName}"/>
+                                    </div>
+                                </div>
+                                <div class="slds-form-element slds-size_1-of-2">
+                                    <div class="slds-form-element__control slds-p-right_small">
+                                        <lightning:input label="Last Name" value="{!v.participantSearchLastName}"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-form-element__row slds-grid">
+                                <aura:if isTrue="{!or(v.fieldCustomizations.Participant_Id == null, v.fieldCustomizations.Participant_Id.isVisible == true)}">
+                                    <div class="slds-form-element slds-size_1-of-2">
+                                        <div class="slds-form-element__control slds-p-right_small">
+                                            <lightning:input aura:id="employeeIdSearch" label="Participant Id" value="{!v.participantSearchEmployeeId}"/>
+                                        </div>
+                                    </div>
+                                </aura:if>
+                                <div class="slds-form-element slds-size_1-of-2">
+                                    <div class="slds-form-element__control slds-p-right_small">
+                                        
+                                        <lightning:input  type="date"
+                                                         label="DOB"
+                                                         value="{!v.participantSearchDOB}"
+                                                         max="{!v.today}"
+                                                         
+                                                         />
+                                    </div>
+                                </div>
+                                 <aura:if isTrue="{!v.isPortalUser == false}">
+                                  <div class="slds-form-element slds-size_1-of-2">
+                                    <div class="slds-form-element__control slds-p-right_small">   
+                                        <lightning:input  type="string" label="Email (only available for BioIQ staff)" value="{!v.participantSearchEmail}"/>
+                                    </div>
+                                </div>
+                                </aura:if>
+                            </div>
+                            <div class="slds-form-element">
+                                <lightning:button class="slds-button slds-button_brand" onclick="{!c.doParticipantSearch}" iconName="utility:search" label="Search" />
+                                <aura:if isTrue="{!v.canEnrollNew == true}">
+                                    <lightning:button iconName="utility:add"
+                                                      class="slds-button slds-button_success"
+                                                      label="Enroll New Participant"
+                                                      onclick="{!c.doAddNewParticipant}"
+                                                      />
+                                </aura:if>
+                                <br/>
+                            </div>
+                            <!-- Suggested Results conditional header -->
+                            <aura:if isTrue="{!v.isSearchSuggestion == true}">
+                                <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_info"
+                                     role="alert">
+                                    <span class="slds-assistive-text">info</span>
+                                    <h2> This participant may already exist, to enroll them into <br/><b>&nbsp;{!v.programName}
+                                                <aura:if isTrue="{!v.companyName != null}">&nbsp;|&nbsp;{!v.companyName}</aura:if>
+                                        <aura:if isTrue="{!v.facilityName != null}">&nbsp;|&nbsp;{!v.facilityName}</aura:if> </b><br/> click the + sign, then enter the Kit Locator ID. 
+                                    </h2>
+                                </div>
+                            </aura:if>
+                            <!-- No Results header -->
+                            <aura:if isTrue="{!and(v.participants != null, v.participants.length == 0)}">
+                                <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_info"
+                                     role="alert">
+                                    <span class="slds-assistive-text">info</span>
+                                    <span class="slds-icon_container slds-icon-utility-ban slds-m-right_x-small"
+                                          title="Description of icon when needed">
+                                        <lightning:icon iconName="utility:warning" variant="inverse" size="medium">
+                                        </lightning:icon>
+                                    </span>
+                                    <h2> Your search did not return any results.<br/>
+                                        
+                                    </h2>
+                                </div> 
+                                <br/>
+                                <br/>
+                                
+                            </aura:if>
+                            <!-- Begin Suggested Search Results from Participant method by Enrollment -->
+                            <aura:if isTrue="{!v.participants.length > 0}">
+                                <div class="slds-form-element">
+                                    <aura:iteration items="{!v.participants}" var="participant" >                           
+                                        <article class="slds-card_boundary related_list_card_border_top forceRelatedListCardDesktop">
+                                            <div class="slds-card__header slds-grid related_list_themed_border_top">
+                                                <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                                                    <div class="slds-media__figure">
+                                                        <lightning:icon iconName="standard:visits" size="large"></lightning:icon>
+                                                    </div>
+                                                    <div class="slds-media__body">
+                                                        <div class="slds-text-heading_small"><b>{!participant.Participant__r.LastName},&nbsp;{!participant.Participant__r.FirstName}</b>
+                                                            <aura:renderIf isTrue="{!participant.Participant__r.Gender__c != null}">
+                                                                &nbsp;&nbsp;<b>[{!participant.Participant__r.Gender__c}]</b>
+                                                            </aura:renderIf>
+                                                            <br/>
+                                                            <aura:renderIf isTrue="{!participant.Participant__r.Birthdate != null}">
+                                                                DOB: {!participant.Participant__r.Birthdate}<br/>
+                                                            </aura:renderIf>
+                                                            
+                                                            Email: {!participant.Participant__r.Email}
+                                                        </div>
+                                                    </div>
+                                                </header>
+                                                <div class="slds-no-flex">
+                                                  
+                                                    <lightning:buttonIcon iconName="utility:add"  onclick="{! c.doSelectParticipant }"  value="{!participant}" alternativeText="Select" />
+                                                    &nbsp;&nbsp;<lightning:buttonIcon iconName="utility:arrowup"  onclick="{! c.doScrollToTopSearch }" alternativeText="Scroll to Top" />
+                                                    
+                                                </div>
+                                            </div>
+                                            <div class="slds-card__body slds-card__body_inner">
+                                                <aura:if isTrue="{!participant.Participant__r.MailingStreet != null}">
+                                                    {!participant.Participant__r.MailingStreet}<br/>
+                                                </aura:if>
+                                                <aura:if isTrue="{!participant.Participant__r.MailingCity != null}">
+                                                    {!participant.Participant__r.MailingCity},&nbsp;
+                                                </aura:if>
+                                                <aura:if isTrue="{!participant.Participant__r.MailingState != null}">
+                                                    {!participant.Participant__r.MailingState}&nbsp;
+                                                </aura:if>
+                                                <aura:if isTrue="{!participant.Participant__r.MailingPostalCode != null}">
+                                                    {!participant.Participant__r.MailingPostalCode}
+                                                </aura:if>
+                                                <br/>
+                                                <aura:if isTrue="{!and(v.fieldCustomizations.Participant_Id != null, v.fieldCustomizations.Participant_Id.isVisible == true)}">            
+                                                    <aura:if isTrue="{!participant.Participant__r.Employee_Id__c != null}">
+                                                        EID: {!participant.Participant__r.Employee_Id__c}<br/>
+                                                    </aura:if>
+                                                </aura:if>
+                                                <b><span style="color:#00B4E6">{!participant.Status__c} | {!participant.Program_Name__c} 
+                                                    <aura:if isTrue="{!participant.Account_Company__r.Name != null}">&nbsp;|&nbsp;{!participant.Account_Company__r.Name}</aura:if>
+                                                    <aura:if isTrue="{!participant.Company_Facility__r.Name != null}">&nbsp;|&nbsp;{!participant.Company_Facility__r.Name}</aura:if>
+                                                    </span></b>
+                                            </div>
+                                        </article>
+                                        <br/>
+                                    </aura:iteration>
+                                </div>
+                            </aura:if>
+                            
+                            <!-- RJV beginning work on Contact results instead of each Enrollment -->
+                            <!-- 2021-10-15
+                            <aura:if isTrue="{!v.contacts.length > 0}">
+                                <div class="slds-form-element">
+                                    <aura:iteration items="{!v.contacts}" var="contact" >                           
+                                        <article class="slds-card_boundary related_list_card_border_top forceRelatedListCardDesktop">
+                                            <div class="slds-card__header slds-grid related_list_themed_border_top">
+                                                <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                                                    <div class="slds-media__figure">
+                                                        <lightning:icon iconName="standard:visits" size="large"></lightning:icon>
+                                                    </div>
+                                                    <div class="slds-media__body">
+                                                        <div class="slds-text-heading_small"><b>{!contact.LastName},&nbsp;{!contact.FirstName}</b>
+                                                            <aura:renderIf isTrue="{!contact.Gender__c != null}">
+                                                                &nbsp;&nbsp;<b>[{!contact.Gender__c}]</b>
+                                                            </aura:renderIf>
+                                                            <br/>
+                                                            <aura:renderIf isTrue="{!contact.Birthdate != null}">
+                                                                DOB: {!contact.Birthdate}<br/>
+                                                            </aura:renderIf>
+                                                            
+                                                            Email: {!contact.Email}
+                                                        </div>
+                                                    </div>
+                                                </header>
+                                                <div class="slds-no-flex">
+                                                    
+                                                    <lightning:buttonIcon iconName="utility:add"  onclick="{! c.doSelectParticipant }"  value="{!contact}" alternativeText="Select" />
+                                                    &nbsp;&nbsp;<lightning:buttonIcon iconName="utility:arrowup"  onclick="{! c.doScrollToTopSearch }" alternativeText="Scroll to Top" />
+                                                    
+                                                </div>
+                                            </div>
+                                            <div class="slds-card__body slds-card__body_inner">
+                                                <aura:if isTrue="{!contact.MailingStreet != null}">
+                                                    {!contact.MailingStreet}<br/>
+                                                </aura:if>
+                                                <aura:if isTrue="{!contact.MailingCity != null}">
+                                                    {!contact.MailingCity},&nbsp;
+                                                </aura:if>
+                                                <aura:if isTrue="{!contact.MailingState != null}">
+                                                    {!contact.MailingState}&nbsp;
+                                                </aura:if>
+                                                <aura:if isTrue="{!contact.MailingPostalCode != null}">
+                                                    {!contact.MailingPostalCode}
+                                                </aura:if>
+                                                <br/>
+                                                <aura:if isTrue="{!and(v.fieldCustomizations.Participant_Id != null, v.fieldCustomizations.Participant_Id.isVisible == true)}">            
+                                                    <aura:if isTrue="{!contact.Employee_Id__c != null}">
+                                                        EID: {!contact.Employee_Id__c}<br/>
+                                                    </aura:if>
+                                                </aura:if>
+                                            </div>
+                                        </article>
+                                        <br/>
+                                    </aura:iteration>
+                                </div>
+                            </aura:if>
+                            -->
+                        </div>
+                    </aura:if>
+                    
+<!-- Participant Record Screen -->
+                    <aura:if isTrue="{!v.participant != null}">
+                        <div class="slds-form slds-form_stacked">
+                            <div class="slds-form-element__group">
+                                <fieldset class="clsFieldset">
+                                    <legend>Participant Information</legend>
+                                    <aura:if isTrue="{!v.participant.Participant__c != null}">
+                                        <div class="slds-form-element__row slds-grid">
+                                            <div class="slds-form-element slds-size_1-of-1">
+                                                <lightning:input aura:id="PII_Update__c" 
+                                                                 label="Update Information" 
+                                                                 type="checkbox" 
+                                                                 checked = "{!v.participant.Participant__r.PII_Update__c}"
+                                                                 value="{!v.participant.Participant__r.PII_Update__c}"
+                                                                 disabled="{!v.participant.Participant__r.PII_Update__c == true}"/>
+                                            </div>
+                                        </div>
+                                    </aura:if>
+                                    <div class="slds-form-element__row slds-grid">                
+                                        <div class="slds-form-element slds-size_1-of-3">
+                                            <div class="slds-form-element__control slds-p-right_small">
+                                                <aura:if isTrue="{!or(v.participant.Participant__r.PII_Update__c == true, v.participant.Participant__c == null)}">
+                                                    <lightning:input required="true" aura:id="participantFirstName"  autocomplete="off"  label="First Name" maxlength="100" name="firstName" value="{!v.participant.Participant__r.FirstName}" ></lightning:input>
+                                                    <aura:set attribute="else">
+                                                        <lightning:input required="true" disabled="true" aura:id="participantFirstName"  autocomplete="off"  label="First Name" maxlength="100" name="firstName" value="{!v.participant.Participant__r.FirstName}"></lightning:input>
+                                                    </aura:set>
+                                                </aura:if>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="slds-form-element slds-size_1-of-3">
+                                            <div class="slds-form-element__control slds-p-right_small">
+                                                <aura:if isTrue="{!or(v.participant.Participant__r.PII_Update__c == true, v.participant.Participant__c == null)}">
+                                                    <lightning:input required="true"  autocomplete="off"  label="Last Name"  maxlength="100" name="lastName" value="{!v.participant.Participant__r.LastName}"></lightning:input>
+                                                    <aura:set attribute="else">
+                                                        <lightning:input required="true" disabled="true"  autocomplete="off"  label="Last Name" maxlength="100" name="lastName" value="{!v.participant.Participant__r.LastName}"></lightning:input>
+                                                    </aura:set>
+                                                </aura:if>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="slds-form-element slds-size_1-of-3">
+                                            <div class="slds-form-element__control slds-p-right_small">
+                                                <aura:if isTrue="{!or(v.participant.Participant__r.PII_Update__c == true, v.participant.Participant__c == null)}">
+                                                    <lightning:input  type="date"
+                                                                     label="Birthdate"
+                                                                     value="{!v.participant.Participant__r.Birthdate}"
+                                                                     max="{!v.today}"
+                                                                     required="true"
+                                                                     placeholder="mm/dd/yyyy"
+                                                                     
+                                                                     />
+                                                    <aura:set attribute="else">
+                                                        <lightning:input  type="date"
+                                                                         label="Birthdate"
+                                                                         value="{!v.participant.Participant__r.Birthdate}"
+                                                                         max="{!v.today}"
+                                                                         required="true"
+                                                                         placeholder="mm/dd/yyyy"
+                                                                         disabled="true"
+                                                                         />
+                                                    </aura:set>
+                                                    
+                                                </aura:if>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="slds-form-element__row slds-grid">
+                                        <div class="slds-form-element slds-size_1-of-3">
+                                            <div class="slds-form-element__control slds-p-right_small">
+                                                <aura:if isTrue="{!or(v.participant.Participant__r.PII_Update__c == true, v.participant.Participant__c == null)}">
+                                                    
+                                                    <lightning:select label="Gender" 
+                                                                      value="{!v.participant.Participant__r.Gender__c}" required="true">
+                                                        <aura:iteration items="{!v.genderOptions}" var="option">
+                                                            <option value="{!option.value}">{!option.label}</option>
+                                                        </aura:iteration>
+                                                    </lightning:select>
+                                                    
+                                                    <aura:set attribute="else">
+                                                        
+                                                        <lightning:select label="Gender" 
+                                                                          value="{!v.participant.Participant__r.Gender__c}" required="true" disabled="true">
+                                                            <aura:iteration items="{!v.genderOptions}" var="option">
+                                                                <option value="{!option.value}">{!option.label}</option>
+                                                            </aura:iteration>
+                                                        </lightning:select>
+                                                        
+                                                    </aura:set>
+                                                </aura:if>
+                                                
+                                            </div>
+                                        </div>
+                                        
+                                        <aura:if isTrue="{!and(v.fieldCustomizations.Race != null, v.fieldCustomizations.Race.isVisible == true)}">
+                                            <div class="slds-form-element slds-size_1-of-3">
+                                                <div class="slds-form-element__control slds-p-right_small">
+                                                    <aura:if isTrue="{!or(v.participant.Participant__r.PII_Update__c == true,v.participant.Participant__c == null)}">
+                                                    <lightning:select
+                                                                      label="{!v.fieldCustomizations.Race.altLabel}"
+                                                                      required="{!v.fieldCustomizations.Race.isRequired}"
+                                                                      disabled="{!v.fieldCustomizations.Race.isDisabled}"
+                                                                      value="{!v.participant.Participant__r.Race__c}">
+                                                        <aura:iteration items="{!v.picklists.Race__c}" var="option">
+                                                            <option value="{!option.value}">{!option.label}</option>
+                                                        </aura:iteration>
+                                                    </lightning:select>
+                                                        <aura:set attribute="else">
+                                                             <lightning:input required="true" disabled="true" autocomplete="off"  label="Race" maxlength="100" name="race" value="{!v.participant.Participant__r.Race__c}"></lightning:input>
+                                                        </aura:set>
+                                                    </aura:if>
+                                                </div>
+                                            </div>
+                                        </aura:if>
+                                        <aura:if isTrue="{!v.fieldCustomizations.Race == null}">
+                                            <div class="slds-form-element__control slds-p-right_small">
+                                                <div class="slds-form-element__control slds-p-right_small">
+                                                    <lightning:select
+                                                                      label="Race"
+                                                                      required="true"
+                                                                      disabled="false"
+                                                                      value="{!v.participant.Participant__r.Race__c}">
+                                                        <aura:iteration items="{!v.picklists.Race__c}" var="option">
+                                                            <option value="{!option.value}">{!option.label}</option>
+                                                        </aura:iteration>
+                                                    </lightning:select>
+                                                </div>
+                                            </div>
+                                        </aura:if>
+                                        
+                                        <aura:if isTrue="{!and(v.fieldCustomizations.Ethnicity != null, v.fieldCustomizations.Ethnicity.isVisible == true)}">
+                                            <div class="slds-form-element slds-size_1-of-3">
+                                                <div class="slds-form-element__control slds-p-right_small">
+                                                     <aura:if isTrue="{!or(v.participant.Participant__r.PII_Update__c == true,v.participant.Participant__c == null)}">
+                                                    <lightning:select
+                                                                      label="{!v.fieldCustomizations.Ethnicity.altLabel}"
+                                                                      required="{!v.fieldCustomizations.Ethnicity.isRequired}"
+                                                                      disabled="{!v.fieldCustomizations.Ethnicity.isDisabled}"
+                                                                      value="{!v.participant.Participant__r.Ethnicity__c}">
+                                                        <aura:iteration items="{!v.picklists.Ethnicity__c}" var="option">
+                                                            <option value="{!option.value}">{!option.label}</option>
+                                                        </aura:iteration>
+                                                    </lightning:select>
+                                                         <aura:set attribute="else">
+                                                          <lightning:input required="true" disabled="true" autocomplete="off"  label="Ethnicity" maxlength="100" name="ethnicity" value="{!v.participant.Participant__r.Ethnicity__c}"></lightning:input>
+                                                         </aura:set>
+                                                    </aura:if>
+                                                    
+                                                </div>
+                                            </div>
+                                        </aura:if>
+                                        <aura:if isTrue="{!v.fieldCustomizations.Ethnicity == null}">
+                                            <div class="slds-form-element slds-size_1-of-3">
+                                                <div class="slds-form-element__control slds-p-right_small">
+                                                    <lightning:select
+                                                                      label="Ethnicity"
+                                                                      required="true"
+                                                                      value="{!v.participant.Participant__r.Ethnicity__c}">
+                                                        <aura:iteration items="{!v.picklists.Ethnicity__c}" var="option">
+                                                            <option value="{!option.value}">{!option.label}</option>
+                                                        </aura:iteration>
+                                                    </lightning:select>
+                                                    
+                                                </div>
+                                            </div>
+                                        </aura:if>
+                                    </div>
+                                    
+                                    <div class="slds-form-element__row slds-grid">
+                                        <aura:if isTrue="{!and(v.fieldCustomizations.Participant_Id != null, v.fieldCustomizations.Participant_Id.isVisible == true)}">
+                                            <div class="slds-form-element slds-size_1-of-3">
+                                                <div class="slds-form-element__control slds-p-right_small">
+                                                    <lightning:input required="{!v.fieldCustomizations.Participant_Id.isRequired}"  autocomplete="off"   label="{!v.fieldCustomizations.Participant_Id.altLabel}" disabled="{!v.fieldCustomizations.Participant_Id.isDisabled}" maxlength="80" name="employeeId" value="{!v.participant.Participant__r.Employee_Id__c}"></lightning:input>
+                                                </div>
+                                            </div>
+                                        </aura:if>
+                                        <aura:if isTrue="{!v.fieldCustomizations.Participant_Id == null}">
+                                            <div class="slds-form-element slds-size_1-of-3">
+                                                <div class="slds-form-element__control slds-p-right_small">
+                                                    <lightning:input required="true"  autocomplete="off"   label="Participant Id" maxlength="80" name="employeeId" value="{!v.participant.Participant__r.Employee_Id__c}"></lightning:input>
+                                                </div>
+                                            </div>
+                                        </aura:if>
+                                        
+                                        
+                                        <aura:if isTrue="{!and(v.fieldCustomizations.Participant_Type != null, v.fieldCustomizations.Participant_Type.isVisible == true)}">
+                                            <div class="slds-form-element slds-size_1-of-3">
+                                                <div class="slds-form-element__control slds-p-right_small">
+                                                    <lightning:select
+                                                                      label="{!v.fieldCustomizations.Participant_Type.altLabel}"
+                                                                      required="{!v.fieldCustomizations.Participant_Type.isRequired}"
+                                                                      disabled="{!v.fieldCustomizations.Participant_Type.isDisabled}"
+                                                                      value="{!v.participant.Participant__r.Employee_Type__c}">
+                                                        <aura:iteration items="{!v.picklists.Employee_Type__c}" var="option">
+                                                            <option value="{!option.value}">{!option.label}</option>
+                                                        </aura:iteration>
+                                                    </lightning:select>
+                                                </div>
+                                            </div>
+                                        </aura:if>
+                                        <aura:if isTrue="{!v.fieldCustomizations.Participant_Type == null}">
+                                            <div class="slds-form-element slds-size_1-of-3">
+                                                <div class="slds-form-element__control slds-p-right_small">
+                                                    <lightning:select
+                                                                      label="Participant Type"
+                                                                      required="true"
+                                                                      value="{!v.participant.Participant__r.Employee_Type__c}">
+                                                        <aura:iteration items="{!v.picklists.Employee_Type__c}" var="option">
+                                                            <option value="{!option.value}">{!option.label}</option>
+                                                        </aura:iteration>
+                                                    </lightning:select>
+                                                </div>
+                                            </div>
+                                        </aura:if>
+                                        
+                                    </div>
+                                </fieldset>
+                                <br/>
+                                <fieldset class="clsFieldset">
+                                    <legend>Contact Information</legend>
+                                    <div class="slds-form-element__row slds-grid">
+                                
+                                        <aura:if isTrue="{!v.fieldCustomizations.Street == null}">
+                                            <div class="slds-form-element slds-size_1-of-3">
+                                                <div class="slds-form-element__control slds-p-right_small">
+                                                    <aura:if isTrue="{!or(v.participant.Participant__r.PII_Update__c == true,v.participant.Participant__c == null)}">
+                                                    	<lightning:input required="true"  autocomplete="off"  label="Street" maxlength="100" name="street" value="{!v.participant.Participant__r.MailingStreet}"></lightning:input>
+                                                        <aura:set attribute="else">
+                                                            <lightning:input required="true" disabled="true" autocomplete="off"  label="Street" maxlength="100" name="street" value="{!v.participant.Participant__r.MailingStreet}"></lightning:input>
+                                                        </aura:set>
+                                                    </aura:if>
+                                                </div>
+                                            </div>
+                                       
+                               </aura:if>
+                                        
+                                        <aura:if isTrue="{!and(v.fieldCustomizations.City != null, v.fieldCustomizations.City.isVisible == true)}">
+                                            <div class="slds-form-element slds-size_1-of-3">
+                                                <div class="slds-form-element__control slds-p-right_small">
+                                                    <aura:if isTrue="{!or(v.participant.Participant__r.PII_Update__c == true,v.participant.Participant__c == null)}">
+                                                    	<lightning:input required="{!v.fieldCustomizations.City.isRequired}"  autocomplete="off" disabled="{!v.fieldCustomizations.City.isDisabled}"  label="{!v.fieldCustomizations.City.altLabel}" maxlength="100" name="city" value="{!v.participant.Participant__r.MailingCity}"></lightning:input>
+                                                        <aura:set attribute="else">
+                                                            <lightning:input required="{!v.fieldCustomizations.City.isRequired}"  autocomplete="off" disabled="true"  label="{!v.fieldCustomizations.City.altLabel}" maxlength="100" name="city" value="{!v.participant.Participant__r.MailingCity}"></lightning:input>
+                                                         </aura:set>
+                                                    </aura:if>
+                                                </div>
+                                            </div>
+                                        </aura:if>
+                                        <aura:if isTrue="{!v.fieldCustomizations.City == null}">
+                                            <div class="slds-form-element slds-size_1-of-3">
+                                                <div class="slds-form-element__control slds-p-right_small">
+                                                     <aura:if isTrue="{!or(v.participant.Participant__r.PII_Update__c == true,v.participant.Participant__c == null)}">
+                                                    	<lightning:input required="true"  autocomplete="off"  label="City" maxlength="100" name="city" value="{!v.participant.Participant__r.MailingCity}"></lightning:input>                                    
+                                                        <aura:set attribute="else">
+                                                            <lightning:input required="true" disabled="true"  autocomplete="off"  label="City" maxlength="100" name="city" value="{!v.participant.Participant__r.MailingCity}"></lightning:input>   
+                                                         </aura:set>
+                                                    </aura:if>
+                                                </div>
+                                            </div>
+                                        </aura:if>
+                                        <aura:if isTrue="{!and(v.fieldCustomizations.State != null, v.fieldCustomizations.State.isVisible == true)}">
+                                            <div class="slds-form-element slds-size_1-of-3">
+                                                <div class="slds-form-element__control slds-p-right_small">
+                                                    <aura:if isTrue="{!or(v.participant.Participant__r.PII_Update__c == true,v.participant.Participant__c == null)}">
+                                                    <lightning:input required="{!v.fieldCustomizations.State.isRequired}" disabled="{!v.fieldCustomizations.State.isDisabled}"  autocomplete="off"  label="{!v.fieldCustomizations.State.altLabel}" maxlength="2" name="state" value="{!v.participant.Participant__r.MailingState}"></lightning:input>
+                                                        <aura:set attribute="else">
+                                                        	 <lightning:input required="{!v.fieldCustomizations.State.isRequired}" disabled="true"  autocomplete="off"  label="{!v.fieldCustomizations.State.altLabel}" maxlength="2" name="state" value="{!v.participant.Participant__r.MailingState}"></lightning:input>
+                                                        </aura:set>
+                                                    </aura:if>
+                                                </div>
+                                            </div>
+                                        </aura:if>
+                                        <aura:if isTrue="{!v.fieldCustomizations.State == null}">
+                                            <div class="slds-form-element slds-size_1-of-3">
+                                                <div class="slds-form-element__control slds-p-right_small">
+                                                    <aura:if isTrue="{!or(v.participant.Participant__r.PII_Update__c == true,v.participant.Participant__c == null)}">
+                                                        <lightning:input required="true"  autocomplete="off"  label="State/Province" maxlength="2" name="state" value="{!v.participant.Participant__r.MailingState}"></lightning:input>
+                                                        <aura:set attribute="else">
+                                                       		 <lightning:input required="true" disabled="true"  autocomplete="off"  label="State/Province" maxlength="2" name="state" value="{!v.participant.Participant__r.MailingState}"></lightning:input>
+                                                 		</aura:set>
+                                                        </aura:if>
+                                                    </div>
+                                            </div>
+                                        </aura:if>
+                                    </div>
+                                    <div class="slds-form-element__row slds-grid">
+                                        <aura:if isTrue="{!and(v.fieldCustomizations.Zip != null, v.fieldCustomizations.Zip.isVisible == true)}">
+                                            <div class="slds-form-element slds-size_1-of-3">
+                                                <div class="slds-form-element__control slds-p-right_small">
+                                                    <aura:if isTrue="{!or(v.participant.Participant__r.PII_Update__c == true,v.participant.Participant__c == null)}">
+                                                    <lightning:input required="{!v.fieldCustomizations.Zip.isRequired}"  autocomplete="off" disabled="{!v.fieldCustomizations.Zip.isDisabled}"  label="{!v.fieldCustomizations.Zip.altLabel}" maxlength="10" name="zip" value="{!v.participant.Participant__r.MailingPostalCode}"></lightning:input>
+                                                <aura:set attribute="else">
+                                                        <lightning:input required="{!v.fieldCustomizations.Zip.isRequired}" disabled="true" autocomplete="off"  label="{!v.fieldCustomizations.Zip.altLabel}" maxlength="10" name="zip" value="{!v.participant.Participant__r.MailingPostalCode}"></lightning:input>
+                                                        </aura:set>
+                                                    </aura:if>
+                                                    </div>
+                                            </div>
+                                        </aura:if>
+                                        <aura:if isTrue="{!v.fieldCustomizations.Zip == null}">
+                                            <div class="slds-form-element slds-size_1-of-3">
+                                                <div class="slds-form-element__control slds-p-right_small">
+                                                     <aura:if isTrue="{!or(v.participant.Participant__r.PII_Update__c == true,v.participant.Participant__c == null)}">
+                                                    	<lightning:input required="true"  autocomplete="off"  label="Zip Code" maxlength="10" name="zip" value="{!v.participant.Participant__r.MailingPostalCode}"></lightning:input>
+                                                    	<aura:set attribute="else">
+                                                            <lightning:input required="true"  autocomplete="off" disabled="true" label="Zip Code" maxlength="10" name="zip" value="{!v.participant.Participant__r.MailingPostalCode}"></lightning:input>
+                                                        </aura:set>
+                                                    </aura:if>
+                                                    </div>
+                                            </div>
+                                        </aura:if>
+                                        <div class="slds-form-element slds-size_1-of-3">
+                                            
+                                        </div>
+                                        <div class="slds-form-element slds-size_1-of-3">
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="slds-form-element__row slds-grid">
+                                        <aura:if isTrue="{!and(v.fieldCustomizations.Home_Phone != null, v.fieldCustomizations.Home_Phone.isVisible == true)}">
+                                            <div class="slds-form-element slds-size_1-of-3">
+                                                <div class="slds-form-element__control slds-p-right_small">
+                                                    <aura:if isTrue="{!or(v.participant.Participant__r.PII_Update__c == true,v.participant.Participant__c == null)}">
+                                                    	<lightning:input required="{!v.fieldCustomizations.Home_Phone.isRequired}"  autocomplete="off" disabled="{!v.fieldCustomizations.Home_Phone.isDisabled}"  label="{!v.fieldCustomizations.Home_Phone.altLabel}" maxlength="255" type="tel" name="phone" value="{!v.participant.Participant__r.Phone}"></lightning:input>
+                                                    	<aura:set attribute="else">
+                                                        	<lightning:input required="{!v.fieldCustomizations.Home_Phone.isRequired}"  autocomplete="off" disabled="true"  label="{!v.fieldCustomizations.Home_Phone.altLabel}" maxlength="255" type="tel" name="phone" value="{!v.participant.Participant__r.Phone}"></lightning:input>
+                                                        </aura:set>
+                                                    </aura:if>
+                                                </div>
+                                            </div>
+                                        </aura:if>
+                                        <aura:if isTrue="{!v.fieldCustomizations.Home_Phone == null}">
+                                            <div class="slds-form-element slds-size_1-of-3">
+                                                <div class="slds-form-element__control slds-p-right_small">
+                                                    <aura:if isTrue="{!or(v.participant.Participant__r.PII_Update__c == true,v.participant.Participant__c == null)}">
+                                                    <lightning:input required="false"  autocomplete="off"  label="Home Phone" maxlength="255" type="tel" name="phone" value="{!v.participant.Participant__r.Phone}"></lightning:input>
+                                                        <aura:set attribute="else">
+                                                         	<lightning:input required="false"  autocomplete="off" disabled="true"  label="Home Phone" maxlength="255" type="tel" name="phone" value="{!v.participant.Participant__r.Phone}"></lightning:input>
+                                                		</aura:set>
+                                                    </aura:if>
+                                                </div>
+                                            </div>
+                                        </aura:if>
+                                        <aura:if isTrue="{!and(v.fieldCustomizations.Mobile_Phone != null, v.fieldCustomizations.Home_Phone.isVisible == true)}">
+                                            <div class="slds-form-element slds-size_1-of-3">
+                                                <div class="slds-form-element__control slds-p-right_small">
+                                                    <aura:if isTrue="{!or(v.participant.Participant__r.PII_Update__c == true,v.participant.Participant__c == null)}">
+                                                    	<lightning:input required="{!v.fieldCustomizations.Mobile_Phone.isRequired}" disabled="{!v.fieldCustomizations.Mobile_Phone.isDisabled}"  autocomplete="off"  label="{!v.fieldCustomizations.Mobile_Phone.altLabel}" maxlength="100" type="tel"  name="mobile" value="{!v.participant.Participant__r.MobilePhone}"></lightning:input>
+                                                  		<aura:set attribute="else">
+                                                            <lightning:input required="{!v.fieldCustomizations.Mobile_Phone.isRequired}" disabled="true"  autocomplete="off"  label="{!v.fieldCustomizations.Mobile_Phone.altLabel}" maxlength="100" type="tel"  name="mobile" value="{!v.participant.Participant__r.MobilePhone}"></lightning:input>
+                                                        </aura:set>
+                                                    </aura:if>  
+                                                </div>
+                                            </div>
+                                        </aura:if>
+                                        <aura:if isTrue="{!v.fieldCustomizations.Mobile_Phone == null}">
+                                            <div class="slds-form-element slds-size_1-of-3">
+                                                <div class="slds-form-element__control slds-p-right_small">
+                                                    <aura:if isTrue="{!or(v.participant.Participant__r.PII_Update__c == true,v.participant.Participant__c == null)}">
+                                                    	<lightning:input required="false"  autocomplete="off"  label="Mobile Phone" maxlength="100" type="tel"  name="mobile" value="{!v.participant.Participant__r.MobilePhone}"></lightning:input>
+                                                        <aura:set attribute="else">
+                                                       		 <lightning:input required="false"  autocomplete="off" disabled="true"  label="Mobile Phone" maxlength="100" type="tel"  name="mobile" value="{!v.participant.Participant__r.MobilePhone}"></lightning:input>
+                                                        </aura:set>
+                                                    </aura:if>  
+                                                </div>
+                                            </div>
+                                        </aura:if>
+                                        <aura:if isTrue="{!and(v.fieldCustomizations.Email != null, v.fieldCustomizations.Email.isVisible == true)}">
+                                            <div class="slds-form-element slds-size_1-of-3">
+                                                <div class="slds-form-element__control slds-p-right_small">
+                                                    <aura:if isTrue="{!or(v.participant.Participant__r.PII_Update__c == true,v.participant.Participant__c == null)}">
+                                                    	<lightning:input required="{!v.fieldCustomizations.Email.isRequired}" disabled="{!v.fieldCustomizations.Email.isDisabled}"  autocomplete="off"  label="{!v.fieldCustomizations.Email.altLabel}" maxlength="100" type="email" name="email" value="{!v.participant.Participant__r.Email}"></lightning:input>
+                                                        <aura:set attribute="else">
+                                                        <lightning:input required="{!v.fieldCustomizations.Email.isRequired}" disabled="true"  autocomplete="off"  label="{!v.fieldCustomizations.Email.altLabel}" maxlength="100" type="email" name="email" value="{!v.participant.Participant__r.Email}"></lightning:input>
+                                                            </aura:set>
+                                                       </aura:if>
+                                                </div>
+                                            </div>
+                                        </aura:if>
+                                        <aura:if isTrue="{!v.fieldCustomizations.Email == null}">
+                                            <div class="slds-form-element slds-size_1-of-3">
+                                                <div class="slds-form-element__control slds-p-right_small">
+                                                    <aura:if isTrue="{!or(v.participant.Participant__r.PII_Update__c == true,v.participant.Participant__c == null)}">
+                                                    <lightning:input required="false"  autocomplete="off"  label="Email" maxlength="100" type="email" name="email" value="{!v.participant.Participant__r.Email}"></lightning:input>
+                                                         <aura:set attribute="else">
+                                                        	<lightning:input required="false"  autocomplete="off" disabled="true"  label="Email" maxlength="100" type="email" name="email" value="{!v.participant.Participant__r.Email}"></lightning:input>
+                                                        </aura:set>
+                                                    </aura:if>
+                                                </div>
+                                            </div>
+                                        </aura:if>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+                        <br/>
+                        
+                        <aura:if isTrue="{!v.participantKits.length > 0}">
+                            <fieldset class="clsFieldset">
+                                <legend>Kit Information</legend>
+                                <table class="slds-table slds-table_bordered">
+                                    <thead>
+                                        <tr class="slds-text-title_caps">
+                                            
+                                            <th scope="col">Locator</th>
+                                            <th scope="col">Status</th>
+                                            <th scope="col">Ordered</th>
+                                            <th scope="col">Resulted</th>
+                                            <th scope="col">Entered By</th>
+                                            <th scope="col">Remove</th>
+                                            <th scope="col">Mark Discarded</th>
+                                            
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <aura:iteration items="{!v.participantKits}" var="kit" >
+                                            <tr>
+                                                <td>
+                                                    <div class="slds-truncate">
+                                                        {!kit.Name}
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="slds-truncate">
+                                                        {!kit.Status__c}
+                                                    </div>
+                                                </td>
+                                                
+                                                <td>
+                                                    <div class="slds-truncate">
+                                                        {!kit.Date_Ordered__c}
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="slds-truncate">
+                                                        {!kit.Date_Resulted__c}
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="slds-truncate">
+                                                        {!kit.Entered_By__c}
+                                                    </div>
+                                                </td>
+                                                <td> 
+                                                    <aura:if isTrue="{!and(kit.Downloaded__c != true, kit.Locked__c != true)}">
+                                                        <lightning:buttonIcon iconName="utility:close" variant="error" onclick="{!c.doRemoveKit}"  value="{!kit}" alternativeText="Remove" />
+                                                    </aura:if>
+                                                </td>
+                                                <td>
+                                                    <aura:if isTrue="{!and(kit.Status__c != 'Resulted',kit.Status__c != 'Discarded', kit.Locked__c != true)}">
+                                                    <lightning:buttonIcon iconName="utility:delete" variant="error" onclick="{!c.doSelectDiscardKit}" value="{!kit}" alternativeText="Mark Discarded" />
+                                                </aura:if>
+                                                </td>
+                                                
+                                            </tr>
+                                        </aura:iteration>
+                                    </tbody>
+                                </table>
+                                
+                                
+                            </fieldset>
+                        </aura:if>
+                        
+                        
+                        <!--Discard Kit pop-up window -->
+ 
+                        <fieldset class="clsFieldset">
+                            <legend>Add New Kit</legend>
+                            <aura:if isTrue="{!v.kitLocatorNotValid == true}">
+                                <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error"
+                                     role="alert">
+                                    <span class="slds-assistive-text">error</span>
+                                    <span class="slds-icon_container slds-icon-utility-ban slds-m-right_x-small"
+                                          title="Description of icon when needed">
+                                        <lightning:icon iconName="utility:ban" variant="inverse" size="x-small">
+                                        </lightning:icon>
+                                    </span>
+                                    <h2>{!v.kitLocatorNotValidMessage}</h2>
+                                </div>
+                            </aura:if>
+                            <div class="slds-form slds-form_stacked">
+                                <div class="slds-form-element__group">
+                                    <div class="slds-form-element__row slds-grid">
+                                        <div class="slds-form-element slds-size_1-of-2">
+                                            <div class="slds-form-element__control slds-p-right_small">
+                                                <lightning:input required="true"  autocomplete="off"  label="Locator"  name="kitName" onchange ="{!c.doValidateParticipantKit}" value="{!v.participantKit.Name}"></lightning:input>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="slds-form-element__row slds-grid">
+                                        <div class="slds-form-element slds-size_1-of-2">
+                                            <div class="slds-form-element__control slds-p-right_small">
+                                                <lightning:input required="true"  autocomplete="off"  label="Re-Enter Locator"  name="kitName" onchange ="{!c.doValidateParticipantKit}" value="{!v.kitLocatorReEnter}"></lightning:input>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <aura:if isTrue="{!and(v.participantKit.Name != null, v.kitLocatorNotValid == false)}">
+                                    <aura:if isTrue="{!v.kitLocatorReEnter != null}">
+                                        <div class="slds-form-element__group">
+                                            <div class="slds-form-element__row slds-grid">
+                                                <aura:if isTrue="{!and(v.fieldCustomizations.Reason_for_Testing != null, v.fieldCustomizations.Reason_for_Testing.isVisible == true)}">
+                                                    <div class="slds-form-element slds-size_1-of-2">
+                                                        <div class="slds-form-element__control slds-p-right_small">
+                                                            <lightning:select label="{!v.fieldCustomizations.Reason_for_Testing.altLabel}" 
+                                                                              value="{!v.participantKit.Reason_for_Testing__c}"
+                                                                              required="{!v.fieldCustomizations.Reason_for_Testing.isRequired}"
+                                                                              disabled="{!v.fieldCustomizations.Reason_for_Testing.isDisabled}">
+                                                                <aura:iteration items="{!v.picklists.Reason_for_Testing__c}" var="option">
+                                                                    <option value="{!option.value}">{!option.label}</option>
+                                                                </aura:iteration>
+                                                            </lightning:select>
+                                                        </div>
+                                                    </div>
+                                                </aura:if>
+                                                <aura:if isTrue="{!v.fieldCustomizations.Reason_for_Testing == null}">
+                                                    <div class="slds-form-element slds-size_1-of-2">
+                                                        <div class="slds-form-element__control slds-p-right_small">
+                                                            <lightning:select label="Reason for Testing" 
+                                                                              value="{!v.participantKit.Reason_for_Testing__c}"
+                                                                              required="true">
+                                                                <aura:iteration items="{!v.picklists.Reason_for_Testing__c}" var="option">
+                                                                    <option value="{!option.value}">{!option.label}</option>
+                                                                </aura:iteration>
+                                                            </lightning:select>
+                                                        </div>
+                                                    </div>
+                                                </aura:if>
+                                                <aura:if isTrue="{!and(v.fieldCustomizations.Condition != null, v.fieldCustomizations.Condition.isVisible == true)}">
+                                                    <div class="slds-form-element slds-size_1-of-2">
+                                                        <div class="slds-form-element__control slds-p-right_small">
+                                                            <lightning:select label="{!v.fieldCustomizations.Condition.altLabel}" 
+                                                                              value="{!v.participantKit.Symptoms_Present__c}"
+                                                                              required="{!v.fieldCustomizations.Condition.isRequired}"
+                                                                              disabled="{!v.fieldCustomizations.Condition.isDisabled}">
+                                                                <aura:iteration items="{!v.picklists.Symptoms_Present__c}" var="option">
+                                                                    <option value="{!option.value}">{!option.label}</option>
+                                                                </aura:iteration>
+                                                            </lightning:select>
+                                                        </div>
+                                                    </div>
+                                                </aura:if>
+                                                <aura:if isTrue="{!v.fieldCustomizations.Condition == null}">
+                                                    <div class="slds-form-element slds-size_1-of-2">
+                                                        <div class="slds-form-element__control slds-p-right_small">
+                                                            <lightning:select label="Condition" 
+                                                                              value="{!v.participantKit.Symptoms_Present__c}"
+                                                                              required="true">
+                                                                <aura:iteration items="{!v.picklists.Symptoms_Present__c}" var="option">
+                                                                    <option value="{!option.value}">{!option.label}</option>
+                                                                </aura:iteration>
+                                                            </lightning:select>
+                                                        </div>
+                                                    </div>
+                                                </aura:if>
+                                            </div>
+                                        </div>
+                                        <div class="slds-form-element__group">
+                                            <div class="slds-form-element__row slds-grid">
+                                                <aura:if isTrue="{!and(v.fieldCustomizations.Temperature != null, v.fieldCustomizations.Temperature.isVisible == true)}">
+                                                    <div class="slds-form-element slds-size_1-of-2">
+                                                        <div class="slds-form-element__control slds-p-right_small">
+                                                            <br/>
+                                                            <lightning:input required="{!v.fieldCustomizations.Temperature.isRequired}"  
+                                                                             disabled="{!v.fieldCustomizations.Temperature.isDisabled}"
+                                                                             autocomplete="off" 
+                                                                             label="{!v.fieldCustomizations.Temperature.altLabel}" 
+                                                                             step="0.1" 
+                                                                             type="number" 
+                                                                             name="temperature" 
+                                                                             value="{!v.participantKit.Tempurature__c}"
+                                                                             message-when-step-mismatch='Please enter temperature with one decimal place (98.7)'></lightning:input>
+                                                        </div>
+                                                    </div>
+                                                </aura:if>
+                                                <aura:if isTrue="{!v.fieldCustomizations.Temperature == null}">
+                                                    <div class="slds-form-element slds-size_1-of-2">
+                                                        <div class="slds-form-element__control slds-p-right_small">
+                                                            <br/>
+                                                            <lightning:input required="true"  
+                                                                             autocomplete="off" 
+                                                                             label="Temperature (°F)" 
+                                                                             step="0.1" 
+                                                                             type="number" 
+                                                                             name="temperature" 
+                                                                             value="{!v.participantKit.Tempurature__c}"
+                                                                             message-when-step-mismatch='Please enter temperature with one decimal place (98.7)'></lightning:input>
+                                                        </div>
+                                                    </div>
+                                                </aura:if>
+                                                <aura:if isTrue="{!and(v.fieldCustomizations.Collection_Date != null, v.fieldCustomizations.Collection_Date.isVisible == true)}">
+                                                    <div class="slds-form-element slds-size_1-of-2">
+                                                        <div class="slds-form-element__control slds-p-right_small">
+                                                            <lightning:input type="datetime-local" datestyle="short" timeStyle="short" disabled="{v.fieldCustomizations.Collection_Date.isDisabled}" required="{v.fieldCustomizations.Collection_Date.isRequired}"  label="{v.fieldCustomizations.Collection_Date.altLabel}" value="{!v.participantKit.Collection_Date_Time__c}"/>
+                                                        </div>
+                                                    </div>
+                                                </aura:if>
+                                                <aura:if isTrue="{!v.fieldCustomizations.Collection_Date == null}">
+                                                    <div class="slds-form-element slds-size_1-of-2">
+                                                        <div class="slds-form-element__control slds-p-right_small">
+                                                            <lightning:input type="datetime-local" datestyle="short" timeStyle="short" required="true"  label="Collection Date" value="{!v.participantKit.Collection_Date_Time__c}"/>
+                                                        </div>
+                                                    </div>
+                                                </aura:if>
+                                            </div>
+                                        </div>
+                                        <div class="slds-form-element__group">
+                                            <div class="slds-form-element__row slds-grid">
+                                                <aura:if isTrue="{!and(v.fieldCustomizations.Approving_Provider != null, v.fieldCustomizations.Approving_Provider.isVisible == true)}">
+                                                    <div class="slds-form-element slds-size_1-of-2">
+                                                        <aura:if isTrue="{!v.isPhysicianSingle == true}">
+                                                            <div style="padding:1px;font-size: .95rem;">
+                                                                Approving Physician: <b>{!v.physicianName}</b>
+                                                            </div>
+                                                        </aura:if>
+                                                        <aura:if isTrue="{!v.isPhysicianSingle != true}">
+                                                            <div class="slds-form-element__control slds-p-right_small">
+                                                                <lightning:select label="Approving Physician" disabled="{v.fieldCustomizations.Approving_Provider.isDisabled}" required="{v.fieldCustomizations.Approving_Provider.isRequired}"
+                                                                                  value="{!v.participantKit.Approving_Provider__c}">
+                                                                    <aura:iteration items="{!v.picklists.Physician_Options}" var="option">
+                                                                        <option value="{!option.value}">{!option.label}</option>
+                                                                    </aura:iteration>
+                                                                </lightning:select>
+                                                            </div>
+                                                        </aura:if>
+                                                    </div>
+                                                </aura:if>
+                                                <aura:if isTrue="{!v.fieldCustomizations.Approving_Provider == null}">
+                                                    <div class="slds-form-element slds-size_1-of-2">
+                                                        <div class="slds-form-element__control slds-p-right_small">
+                                                            <lightning:select label="Approving Provider" required="true"
+                                                                              value="{!v.participantKit.Approving_Provider__c}">
+                                                                <aura:iteration items="{!v.picklists.Physician_Options}" var="option">
+                                                                    <option value="{!option.value}">{!option.label}</option>
+                                                                </aura:iteration>
+                                                            </lightning:select>
+                                                        </div>
+                                                    </div>
+                                                </aura:if>
+                                                
+                                                <div class="slds-form-element slds-size_1-of-2">
+                                                    
+                                                    <div class="slds-form-element__control slds-p-right_small">
+                                                        <aura:if isTrue="{!and(v.fieldCustomizations.Patient_Consent != null, v.fieldCustomizations.Patient_Consent.isVisible == true)}">
+                                                            <lightning:input  label="{!v.fieldCustomizations.Patient_Consent.altLabel}"
+                                                                             disabled="{!v.fieldCustomizations.Patient_Consent.isDisabled}"
+                                                                             checked="{!v.participantKit.Patient_Consent__c }" 
+                                                                             value="{!v.participantKit.Patient_Consent__c }" 
+                                                                             type="checkbox"
+                                                                             required="{!v.fieldCustomizations.Patient_Consent.isRequired}"
+                                                                             style="background-color:yellow"/>
+                                                        </aura:if>
+                                                        <aura:if isTrue="{!v.fieldCustomizations.Patient_Consent == null}">
+                                                            <lightning:input  label="Patient Consent"
+                                                                             checked="{!v.participantKit.Patient_Consent__c }" 
+                                                                             value="{!v.participantKit.Patient_Consent__c }" 
+                                                                             type="checkbox"
+                                                                             required="true"
+                                                                             style="background-color:yellow"/>
+                                                        </aura:if>
+                                                        <aura:if isTrue="{!and(v.fieldCustomizations.Photo_ID_Verified != null, v.fieldCustomizations.Photo_ID_Verified.isVisible == true)}">
+                                                            <lightning:input  label="{!v.fieldCustomizations.Photo_ID_Verified.altLabel}"
+                                                                             checked="{!v.participantKit.Photo_ID_Verified__c }" 
+                                                                             value="{!v.participantKit.Photo_ID_Verified__c }" 
+                                                                             type="checkbox"
+                                                                             required="{!v.fieldCustomizations.Photo_ID_Verified.isRequired}"
+                                                                             disabled="{!v.fieldCustomizations.Photo_ID_Verified.isDisabled}"
+                                                                             style="background-color:yellow"/>
+                                                        </aura:if>
+                                                        <aura:if isTrue="{!v.fieldCustomizations.Photo_ID_Verified == null}">
+                                                            <lightning:input  label="Photo ID Verified"
+                                                                             checked="{!v.participantKit.Photo_ID_Verified__c }" 
+                                                                             value="{!v.participantKit.Photo_ID_Verified__c }" 
+                                                                             type="checkbox"
+                                                                             required="true"
+                                                                             style="background-color:yellow"/>
+                                                        </aura:if>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </aura:if>
+                                </aura:if>
+                            </div>
+                            <br/>
+                        </fieldset>
+                      <!-- Begin Contact Demographics -->  
+                    </aura:if>
+
+<!-- Demographic Data from Program Participant view -->
+                    <aura:if isTrue="{!v.contact != null}">
+                        
+                        <div class="slds-form slds-form_stacked">
+                            
+                            <div class="slds-form-element__group">
+                                <fieldset class="clsFieldset">
+                                    <legend>Participant Information</legend>
+                                    <aura:if isTrue="{!v.contact != null}">
+                                        <div class="slds-form-element__row slds-grid">
+                                            <div class="slds-form-element slds-size_1-of-1">
+                                                <lightning:input aura:id="PII_Update__c" 
+                                                                 label="Update Information" 
+                                                                 type="checkbox" 
+                                                                 checked = "{!v.contact.PII_Update__c}"
+                                                                 value="{!v.contact.PII_Update__c}"
+                                                                 disabled="{!v.contact.PII_Update__c == true}"/>
+                                            </div>
+                                        </div>
+                                    </aura:if>
+                                    <div class="slds-form-element__row slds-grid">                
+                                        <div class="slds-form-element slds-size_1-of-3">
+                                            <div class="slds-form-element__control slds-p-right_small">
+                                                <aura:if isTrue="{!or(v.contact.PII_Update__c == true, v.contact.Id == null)}">
+                                                    <lightning:input required="true" aura:id="participantFirstName"  autocomplete="off"  label="First Name" maxlength="100" name="firstName" value="{!v.contact.FirstName}" ></lightning:input>
+                                                    <aura:set attribute="else">
+                                                        <lightning:input required="true" disabled="true" aura:id="participantFirstName"  autocomplete="off"  label="First Name" maxlength="100" name="firstName" value="{!v.contact.FirstName}"></lightning:input>
+                                                    </aura:set>
+                                                </aura:if>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="slds-form-element slds-size_1-of-3">
+                                            <div class="slds-form-element__control slds-p-right_small">
+                                                <aura:if isTrue="{!or(v.contact.PII_Update__c == true, v.contact.Id == null)}">
+                                                    <lightning:input required="true"  autocomplete="off"  label="Last Name"  maxlength="100" name="lastName" value="{!v.contact.LastName}"></lightning:input>
+                                                    <aura:set attribute="else">
+                                                        <lightning:input required="true" disabled="true"  autocomplete="off"  label="Last Name" maxlength="100" name="lastName" value="{!v.contact.LastName}"></lightning:input>
+                                                    </aura:set>
+                                                </aura:if>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="slds-form-element slds-size_1-of-3">
+                                            <div class="slds-form-element__control slds-p-right_small">
+                                                <aura:if isTrue="{!or(v.contact.PII_Update__c == true, v.contact.Id == null)}">
+                                                    <lightning:input  type="date"
+                                                                     label="Birthdate"
+                                                                     value="{!v.contact.Birthdate}"
+                                                                     max="{!v.today}"
+                                                                     required="true"
+                                                                     placeholder="mm/dd/yyyy"
+                                                                     
+                                                                     />
+                                                    <aura:set attribute="else">
+                                                        <lightning:input  type="date"
+                                                                         label="Birthdate"
+                                                                         value="{!v.contact.Birthdate}"
+                                                                         max="{!v.today}"
+                                                                         required="true"
+                                                                         placeholder="mm/dd/yyyy"
+                                                                         disabled="true"
+                                                                         />
+                                                    </aura:set>
+                                                    
+                                                </aura:if>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="slds-form-element__row slds-grid">
+                                        <div class="slds-form-element slds-size_1-of-3">
+                                            <div class="slds-form-element__control slds-p-right_small">
+                                                <aura:if isTrue="{!or(v.contact.PII_Update__c == true, v.contact.Id == null)}">
+                                                    
+                                                    <lightning:select label="Gender" 
+                                                                      value="{!v.contact.Gender__c}" required="true">
+                                                        <aura:iteration items="{!v.genderOptions}" var="option">
+                                                            <option value="{!option.value}">{!option.label}</option>
+                                                        </aura:iteration>
+                                                    </lightning:select>
+                                                    
+                                                    <aura:set attribute="else">
+                                                        
+                                                        <lightning:select label="Gender" 
+                                                                          value="{!v.contact.Gender__c}" required="true" disabled="true">
+                                                            <aura:iteration items="{!v.genderOptions}" var="option">
+                                                                <option value="{!option.value}">{!option.label}</option>
+                                                            </aura:iteration>
+                                                        </lightning:select>
+                                                        
+                                                    </aura:set>
+                                                </aura:if>
+                                                
+                                            </div>
+                                        </div>
+                                        <aura:if isTrue="{!and(v.fieldCustomizations.Race != null, v.fieldCustomizations.Race.isVisible == true)}">
+                                            <div class="slds-form-element slds-size_1-of-3">
+                                                <div class="slds-form-element__control slds-p-right_small">
+                                                    <lightning:select
+                                                                      label="{!v.fieldCustomizations.Race.altLabel}"
+                                                                      required="{!v.fieldCustomizations.Race.isRequired}"
+                                                                      disabled="{!v.fieldCustomizations.Race.isDisabled}"
+                                                                      value="{!v.contact.Race__c}">
+                                                        <aura:iteration items="{!v.picklists.Race__c}" var="option">
+                                                            <option value="{!option.value}">{!option.label}</option>
+                                                        </aura:iteration>
+                                                    </lightning:select>
+                                                </div>
+                                            </div>
+                                        </aura:if>
+                                        <aura:if isTrue="{!v.fieldCustomizations.Race == null}">
+                                            <div class="slds-form-element__control slds-p-right_small">
+                                                <div class="slds-form-element__control slds-p-right_small">
+                                                    <lightning:select
+                                                                      label="Race"
+                                                                      required="true"
+                                                                      disabled="false"
+                                                                      value="{!v.contact.Race__c}">
+                                                        <aura:iteration items="{!v.picklists.Race__c}" var="option">
+                                                            <option value="{!option.value}">{!option.label}</option>
+                                                        </aura:iteration>
+                                                    </lightning:select>
+                                                </div>
+                                            </div>
+                                        </aura:if>
+                                        
+                                        <aura:if isTrue="{!and(v.fieldCustomizations.Ethnicity != null, v.fieldCustomizations.Ethnicity.isVisible == true)}">
+                                            <div class="slds-form-element slds-size_1-of-3">
+                                                <div class="slds-form-element__control slds-p-right_small">
+                                                    <lightning:select
+                                                                      label="{!v.fieldCustomizations.Ethnicity.altLabel}"
+                                                                      required="{!v.fieldCustomizations.Ethnicity.isRequired}"
+                                                                      disabled="{!v.fieldCustomizations.Ethnicity.isDisabled}"
+                                                                      value="{!v.contact.Ethnicity__c}">
+                                                        <aura:iteration items="{!v.picklists.Ethnicity__c}" var="option">
+                                                            <option value="{!option.value}">{!option.label}</option>
+                                                        </aura:iteration>
+                                                    </lightning:select>
+                                                    
+                                                </div>
+                                            </div>
+                                        </aura:if>
+                                        <aura:if isTrue="{!v.fieldCustomizations.Ethnicity == null}">
+                                            <div class="slds-form-element slds-size_1-of-3">
+                                                <div class="slds-form-element__control slds-p-right_small">
+                                                    <lightning:select
+                                                                      label="Ethnicity"
+                                                                      required="true"
+                                                                      value="{!v.contact.Ethnicity__c}">
+                                                        <aura:iteration items="{!v.picklists.Ethnicity__c}" var="option">
+                                                            <option value="{!option.value}">{!option.label}</option>
+                                                        </aura:iteration>
+                                                    </lightning:select>
+                                                    
+                                                </div>
+                                            </div>
+                                        </aura:if>
+                                    </div>
+                                    
+                                    <div class="slds-form-element__row slds-grid">
+                                        <aura:if isTrue="{!and(v.fieldCustomizations.Participant_Id != null, v.fieldCustomizations.Participant_Id.isVisible == true)}">
+                                            <div class="slds-form-element slds-size_1-of-3">
+                                                <div class="slds-form-element__control slds-p-right_small">
+                                                    <lightning:input required="{!v.fieldCustomizations.Participant_Id.isRequired}"  autocomplete="off"   label="{!v.fieldCustomizations.Participant_Id.altLabel}" disabled="{!v.fieldCustomizations.Participant_Id.isDisabled}" maxlength="80" name="employeeId" value="{!v.participant.Participant__r.Employee_Id__c}"></lightning:input>
+                                                </div>
+                                            </div>
+                                        </aura:if>
+                                        <aura:if isTrue="{!v.fieldCustomizations.Participant_Id == null}">
+                                            <div class="slds-form-element slds-size_1-of-3">
+                                                <div class="slds-form-element__control slds-p-right_small">
+                                                    <lightning:input required="true"  autocomplete="off"   label="Participant Id" maxlength="80" name="employeeId" value="{!v.contact.Employee_Id__c}"></lightning:input>
+                                                </div>
+                                            </div>
+                                        </aura:if>
+                                        
+                                        
+                                        <aura:if isTrue="{!and(v.fieldCustomizations.Participant_Type != null, v.fieldCustomizations.Participant_Type.isVisible == true)}">
+                                            <div class="slds-form-element slds-size_1-of-3">
+                                                <div class="slds-form-element__control slds-p-right_small">
+                                                    <lightning:select
+                                                                      label="{!v.fieldCustomizations.Participant_Type.altLabel}"
+                                                                      required="{!v.fieldCustomizations.Participant_Type.isRequired}"
+                                                                      disabled="{!v.fieldCustomizations.Participant_Type.isDisabled}"
+                                                                      value="{!v.contact.Employee_Type__c}">
+                                                        <aura:iteration items="{!v.picklists.Employee_Type__c}" var="option">
+                                                            <option value="{!option.value}">{!option.label}</option>
+                                                        </aura:iteration>
+                                                    </lightning:select>
+                                                </div>
+                                            </div>
+                                        </aura:if>
+                                        <aura:if isTrue="{!v.fieldCustomizations.Participant_Type == null}">
+                                            <div class="slds-form-element slds-size_1-of-3">
+                                                <div class="slds-form-element__control slds-p-right_small">
+                                                    <lightning:select
+                                                                      label="Participant Type"
+                                                                      required="true"
+                                                                      value="{!v.contact.Employee_Type__c}">
+                                                        <aura:iteration items="{!v.picklists.Employee_Type__c}" var="option">
+                                                            <option value="{!option.value}">{!option.label}</option>
+                                                        </aura:iteration>
+                                                    </lightning:select>
+                                                </div>
+                                            </div>
+                                        </aura:if>
+                                        
+                                    </div>
+                                </fieldset>
+                                <br/>
+                                <fieldset class="clsFieldset">
+                                    <legend>Contact Information</legend>
+                                    <div class="slds-form-element__row slds-grid">
+                                
+                                        <aura:if isTrue="{!v.fieldCustomizations.Street == null}">
+                                            <div class="slds-form-element slds-size_1-of-3">
+                                                <div class="slds-form-element__control slds-p-right_small">
+                                                    <aura:if isTrue="{!or(v.contact.PII_Update__c == true,v.contact.Id == null)}">
+                                                    	<lightning:input required="true"  autocomplete="off"  label="Street" maxlength="100" name="street" value="{!v.contact.MailingStreet}"></lightning:input>
+                                                        <aura:set attribute="else">
+                                                            <lightning:input required="true" disabled="true" autocomplete="off"  label="Street" maxlength="100" name="street" value="{!v.contact.MailingStreet}"></lightning:input>
+                                                        </aura:set>
+                                                    </aura:if>
+                                                </div>
+                                            </div>
+                                       
+                               </aura:if>
+                                        
+                                        <aura:if isTrue="{!and(v.fieldCustomizations.City != null, v.fieldCustomizations.City.isVisible == true)}">
+                                            <div class="slds-form-element slds-size_1-of-3">
+                                                <div class="slds-form-element__control slds-p-right_small">
+                                                    <aura:if isTrue="{!or(v.contact.PII_Update__c == true,v.contact.Id == null)}">
+                                                    	<lightning:input required="{!v.fieldCustomizations.City.isRequired}"  autocomplete="off" disabled="{!v.fieldCustomizations.City.isDisabled}"  label="{!v.fieldCustomizations.City.altLabel}" maxlength="100" name="city" value="{!v.contact.MailingCity}"></lightning:input>
+                                                        <aura:set attribute="else">
+                                                            <lightning:input required="{!v.fieldCustomizations.City.isRequired}"  autocomplete="off" disabled="true"  label="{!v.fieldCustomizations.City.altLabel}" maxlength="100" name="city" value="{!v.contact.MailingCity}"></lightning:input>
+                                                         </aura:set>
+                                                    </aura:if>
+                                                </div>
+                                            </div>
+                                        </aura:if>
+                                        <aura:if isTrue="{!v.fieldCustomizations.City == null}">
+                                            <div class="slds-form-element slds-size_1-of-3">
+                                                <div class="slds-form-element__control slds-p-right_small">
+                                                     <aura:if isTrue="{!or(v.contact.PII_Update__c == true,v.participant.contact.Id == null)}">
+                                                    	<lightning:input required="true"  autocomplete="off"  label="City" maxlength="100" name="city" value="{!v.contact.MailingCity}"></lightning:input>                                    
+                                                        <aura:set attribute="else">
+                                                            <lightning:input required="true" disabled="true"  autocomplete="off"  label="City" maxlength="100" name="city" value="{!v.contact.Participant__r.MailingCity}"></lightning:input>   
+                                                         </aura:set>
+                                                    </aura:if>
+                                                </div>
+                                            </div>
+                                        </aura:if>
+                                        <aura:if isTrue="{!and(v.fieldCustomizations.State != null, v.fieldCustomizations.State.isVisible == true)}">
+                                            <div class="slds-form-element slds-size_1-of-3">
+                                                <div class="slds-form-element__control slds-p-right_small">
+                                                    <aura:if isTrue="{!or(v.contact.PII_Update__c == true,v.contact.Id == null)}">
+                                                    <lightning:input required="{!v.fieldCustomizations.State.isRequired}" disabled="{!v.fieldCustomizations.State.isDisabled}"  autocomplete="off"  label="{!v.fieldCustomizations.State.altLabel}" maxlength="2" name="state" value="{!v.contact.MailingState}"></lightning:input>
+                                                        <aura:set attribute="else">
+                                                        	 <lightning:input required="{!v.fieldCustomizations.State.isRequired}" disabled="true"  autocomplete="off"  label="{!v.fieldCustomizations.State.altLabel}" maxlength="2" name="state" value="{!v.contact.MailingState}"></lightning:input>
+                                                        </aura:set>
+                                                    </aura:if>
+                                                </div>
+                                            </div>
+                                        </aura:if>
+                                        <aura:if isTrue="{!v.fieldCustomizations.State == null}">
+                                            <div class="slds-form-element slds-size_1-of-3">
+                                                <div class="slds-form-element__control slds-p-right_small">
+                                                    <aura:if isTrue="{!or(v.contact.PII_Update__c == true,v.contact.Id == null)}">
+                                                        <lightning:input required="true"  autocomplete="off"  label="State/Province" maxlength="2" name="state" value="{!v.contact.MailingState}"></lightning:input>
+                                                        <aura:set attribute="else">
+                                                       		 <lightning:input required="true" disabled="true"  autocomplete="off"  label="State/Province" maxlength="2" name="state" value="{!v.contact.MailingState}"></lightning:input>
+                                                 		</aura:set>
+                                                        </aura:if>
+                                                    </div>
+                                            </div>
+                                        </aura:if>
+                                    </div>
+                                    <div class="slds-form-element__row slds-grid">
+                                        <aura:if isTrue="{!and(v.fieldCustomizations.Zip != null, v.fieldCustomizations.Zip.isVisible == true)}">
+                                            <div class="slds-form-element slds-size_1-of-3">
+                                                <div class="slds-form-element__control slds-p-right_small">
+                                                    <aura:if isTrue="{!or(v.contact.PII_Update__c == true,v.contact.id == null)}">
+                                                    <lightning:input required="{!v.fieldCustomizations.Zip.isRequired}"  autocomplete="off" disabled="{!v.fieldCustomizations.Zip.isDisabled}"  label="{!v.fieldCustomizations.Zip.altLabel}" maxlength="10" name="zip" value="{!v.contact.MailingPostalCode}"></lightning:input>
+                                                <aura:set attribute="else">
+                                                        <lightning:input required="{!v.fieldCustomizations.Zip.isRequired}" disabled="true" autocomplete="off"  label="{!v.fieldCustomizations.Zip.altLabel}" maxlength="10" name="zip" value="{!v.contact.MailingPostalCode}"></lightning:input>
+                                                        </aura:set>
+                                                    </aura:if>
+                                                    </div>
+                                            </div>
+                                        </aura:if>
+                                        <aura:if isTrue="{!v.fieldCustomizations.Zip == null}">
+                                            <div class="slds-form-element slds-size_1-of-3">
+                                                <div class="slds-form-element__control slds-p-right_small">
+                                                     <aura:if isTrue="{!or(v.Contact.PII_Update__c == true,v.contact.id == null)}">
+                                                    	<lightning:input required="true"  autocomplete="off"  label="Zip Code" maxlength="10" name="zip" value="{!v.contact.MailingPostalCode}"></lightning:input>
+                                                    	<aura:set attribute="else">
+                                                            <lightning:input required="true"  autocomplete="off" disabled="true" label="Zip Code" maxlength="10" name="zip" value="{!v.contact.MailingPostalCode}"></lightning:input>
+                                                        </aura:set>
+                                                    </aura:if>
+                                                    </div>
+                                            </div>
+                                        </aura:if>
+                                        <div class="slds-form-element slds-size_1-of-3">
+                                            
+                                        </div>
+                                        <div class="slds-form-element slds-size_1-of-3">
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="slds-form-element__row slds-grid">
+                                        <aura:if isTrue="{!and(v.fieldCustomizations.Home_Phone != null, v.fieldCustomizations.Home_Phone.isVisible == true)}">
+                                            <div class="slds-form-element slds-size_1-of-3">
+                                                <div class="slds-form-element__control slds-p-right_small">
+                                                    <aura:if isTrue="{!or(v.contact.PII_Update__c == true,v.contact.Id == null)}">
+                                                    	<lightning:input required="{!v.fieldCustomizations.Home_Phone.isRequired}"  autocomplete="off" disabled="{!v.fieldCustomizations.Home_Phone.isDisabled}"  label="{!v.fieldCustomizations.Home_Phone.altLabel}" maxlength="255" type="tel" name="phone" value="{!v.contact.Phone}"></lightning:input>
+                                                    	<aura:set attribute="else">
+                                                        	<lightning:input required="{!v.fieldCustomizations.Home_Phone.isRequired}"  autocomplete="off" disabled="true"  label="{!v.fieldCustomizations.Home_Phone.altLabel}" maxlength="255" type="tel" name="phone" value="{!v.contact.Phone}"></lightning:input>
+                                                        </aura:set>
+                                                    </aura:if>
+                                                </div>
+                                            </div>
+                                        </aura:if>
+                                        <aura:if isTrue="{!v.fieldCustomizations.Home_Phone == null}">
+                                            <div class="slds-form-element slds-size_1-of-3">
+                                                <div class="slds-form-element__control slds-p-right_small">
+                                                    <aura:if isTrue="{!or(v.contact.PII_Update__c == true,v.contact.Id == null)}">
+                                                    <lightning:input required="false"  autocomplete="off"  label="Home Phone" maxlength="255" type="tel" name="phone" value="{!v.contact.Phone}"></lightning:input>
+                                                        <aura:set attribute="else">
+                                                         	<lightning:input required="false"  autocomplete="off" disabled="true"  label="Home Phone" maxlength="255" type="tel" name="phone" value="{!v.contact.Phone}"></lightning:input>
+                                                		</aura:set>
+                                                    </aura:if>
+                                                </div>
+                                            </div>
+                                        </aura:if>
+                                        <aura:if isTrue="{!and(v.fieldCustomizations.Mobile_Phone != null, v.fieldCustomizations.Home_Phone.isVisible == true)}">
+                                            <div class="slds-form-element slds-size_1-of-3">
+                                                <div class="slds-form-element__control slds-p-right_small">
+                                                    <aura:if isTrue="{!or(v.contact.PII_Update__c == true,v.contact.Id == null)}">
+                                                    	<lightning:input required="{!v.fieldCustomizations.Mobile_Phone.isRequired}" disabled="{!v.fieldCustomizations.Mobile_Phone.isDisabled}"  autocomplete="off"  label="{!v.fieldCustomizations.Mobile_Phone.altLabel}" maxlength="100" type="tel"  name="mobile" value="{!v.contact.MobilePhone}"></lightning:input>
+                                                  		<aura:set attribute="else">
+                                                            <lightning:input required="{!v.fieldCustomizations.Mobile_Phone.isRequired}" disabled="true"  autocomplete="off"  label="{!v.fieldCustomizations.Mobile_Phone.altLabel}" maxlength="100" type="tel"  name="mobile" value="{!v.contact.MobilePhone}"></lightning:input>
+                                                        </aura:set>
+                                                    </aura:if>  
+                                                </div>
+                                            </div>
+                                        </aura:if>
+                                        <aura:if isTrue="{!v.fieldCustomizations.Mobile_Phone == null}">
+                                            <div class="slds-form-element slds-size_1-of-3">
+                                                <div class="slds-form-element__control slds-p-right_small">
+                                                    <aura:if isTrue="{!or(v.contact.PII_Update__c == true,v.contact.Id == null)}">
+                                                    	<lightning:input required="false"  autocomplete="off"  label="Mobile Phone" maxlength="100" type="tel"  name="mobile" value="{!v.contact.MobilePhone}"></lightning:input>
+                                                        <aura:set attribute="else">
+                                                       		 <lightning:input required="false"  autocomplete="off" disabled="true"  label="Mobile Phone" maxlength="100" type="tel"  name="mobile" value="{!v.contact.MobilePhone}"></lightning:input>
+                                                        </aura:set>
+                                                    </aura:if>  
+                                                </div>
+                                            </div>
+                                        </aura:if>
+                                        <aura:if isTrue="{!and(v.fieldCustomizations.Email != null, v.fieldCustomizations.Email.isVisible == true)}">
+                                            <div class="slds-form-element slds-size_1-of-3">
+                                                <div class="slds-form-element__control slds-p-right_small">
+                                                    <aura:if isTrue="{!or(v.contact.PII_Update__c == true,v.contact.Id == null)}">
+                                                    	<lightning:input required="{!v.fieldCustomizations.Email.isRequired}" disabled="{!v.fieldCustomizations.Email.isDisabled}"  autocomplete="off"  label="{!v.fieldCustomizations.Email.altLabel}" maxlength="100" type="email" name="email" value="{!v.contact.Email}"></lightning:input>
+                                                        <aura:set attribute="else">
+                                                        <lightning:input required="{!v.fieldCustomizations.Email.isRequired}" disabled="true"  autocomplete="off"  label="{!v.fieldCustomizations.Email.altLabel}" maxlength="100" type="email" name="email" value="{!v.contact.Email}"></lightning:input>
+                                                            </aura:set>
+                                                       </aura:if>
+                                                </div>
+                                            </div>
+                                        </aura:if>
+                                        <aura:if isTrue="{!v.fieldCustomizations.Email == null}">
+                                            <div class="slds-form-element slds-size_1-of-3">
+                                                <div class="slds-form-element__control slds-p-right_small">
+                                                    <aura:if isTrue="{!or(v.contact.PII_Update__c == true,v.contact == null)}">
+                                                    <lightning:input required="false"  autocomplete="off"  label="Email" maxlength="100" type="email" name="email" value="{!v.contact.Email}"></lightning:input>
+                                                         <aura:set attribute="else">
+                                                        	<lightning:input required="false"  autocomplete="off" disabled="true"  label="Email" maxlength="100" type="email" name="email" value="{!v.contact.Email}"></lightning:input>
+                                                        </aura:set>
+                                                    </aura:if>
+                                                </div>
+                                            </div>
+                                        </aura:if>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+                        <br/>
+                          
+<!-- Related list of registered kits section -->                          
+                        <aura:if isTrue="{!v.participantKits.length > 0}">
+                            <fieldset class="clsFieldset">
+                                <legend>Kit Information</legend>
+                                <table class="slds-table slds-table_bordered">
+                                    <thead>
+                                        <tr class="slds-text-title_caps">
+                                            
+                                            <th scope="col">Locator</th>
+                                            <th scope="col">Status</th>
+                                            <th scope="col">Ordered</th>
+                                            <th scope="col">Resulted</th>
+                                            <th scope="col">Entered By</th>
+                                            <th scope="col">Remove</th>
+                                            
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <aura:iteration items="{!v.participantKits}" var="kit" >
+                                            <tr>
+                                                <td>
+                                                    <div class="slds-truncate">
+                                                        {!kit.Name}
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="slds-truncate">
+                                                        {!kit.Status__c}
+                                                    </div>
+                                                </td>
+                                                
+                                                <td>
+                                                    <div class="slds-truncate">
+                                                        {!kit.Date_Ordered__c}
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="slds-truncate">
+                                                        {!kit.Date_Resulted__c}
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="slds-truncate">
+                                                        {!kit.Entered_By__c}
+                                                    </div>
+                                                </td>
+                                                <td> 
+                                                    <aura:if isTrue="{!and(kit.Downloaded__c != true, kit.Locked__c != true)}">
+                                                        <lightning:buttonIcon iconName="utility:delete" variant="error" onclick="{!c.doRemoveKit}"  value="{!kit}" alternativeText="Remove" />
+                                                    </aura:if>
+                                                </td>
+                                                
+                                            </tr>
+                                        </aura:iteration>
+                                    </tbody>
+                                </table>
+                                
+                                
+                            </fieldset>
+                        </aura:if>
+                          
+<!-- Add New Kit Section -->
+                        <fieldset class="clsFieldset">
+                            <legend>Add New Kit</legend>
+                            <aura:if isTrue="{!v.kitLocatorNotValid == true}">
+                                <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error"
+                                     role="alert">
+                                    <span class="slds-assistive-text">error</span>
+                                    <span class="slds-icon_container slds-icon-utility-ban slds-m-right_x-small"
+                                          title="Description of icon when needed">
+                                        <lightning:icon iconName="utility:ban" variant="inverse" size="x-small">
+                                        </lightning:icon>
+                                    </span>
+                                    <h2>{!v.kitLocatorNotValidMessage}</h2>
+                                </div>
+                            </aura:if>
+                     <!-- enter kit locator Id -->       
+                            <div class="slds-form slds-form_stacked">
+                                <div class="slds-form-element__group">
+                                    <div class="slds-form-element__row slds-grid">
+                                        <div class="slds-form-element slds-size_1-of-2">
+                                            <div class="slds-form-element__control slds-p-right_small">
+                                                <lightning:input required="true"  autocomplete="off"  label="Locator"  name="kitName" onchange ="{!c.doValidateParticipantKit}" value="{!v.participantKit.Name}"></lightning:input>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="slds-form-element__row slds-grid">
+                                        <div class="slds-form-element slds-size_1-of-2">
+                                            <div class="slds-form-element__control slds-p-right_small">
+                                                <lightning:input required="true"  autocomplete="off"  label="Re-Enter Locator"  name="kitName" onchange ="{!c.doValidateParticipantKit}" value="{!v.kitLocatorReEnter}"></lightning:input>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        <!-- enter details about the sample -->
+                                <aura:if isTrue="{!and(v.participantKit.Name != null, v.kitLocatorNotValid == false)}">
+                                    <aura:if isTrue="{!v.kitLocatorReEnter != null}">
+                                        <div class="slds-form-element__group">
+                                            <div class="slds-form-element__row slds-grid">
+                                                <aura:if isTrue="{!and(v.fieldCustomizations.Reason_for_Testing != null, v.fieldCustomizations.Reason_for_Testing.isVisible == true)}">
+                                                    <div class="slds-form-element slds-size_1-of-2">
+                                                        <div class="slds-form-element__control slds-p-right_small">
+                                                            <lightning:select label="{!v.fieldCustomizations.Reason_for_Testing.altLabel}" 
+                                                                              value="{!v.participantKit.Reason_for_Testing__c}"
+                                                                              required="{!v.fieldCustomizations.Reason_for_Testing.isRequired}"
+                                                                              disabled="{!v.fieldCustomizations.Reason_for_Testing.isDisabled}">
+                                                                <aura:iteration items="{!v.picklists.Reason_for_Testing__c}" var="option">
+                                                                    <option value="{!option.value}">{!option.label}</option>
+                                                                </aura:iteration>
+                                                            </lightning:select>
+                                                        </div>
+                                                    </div>
+                                                </aura:if>
+                                                <aura:if isTrue="{!v.fieldCustomizations.Reason_for_Testing == null}">
+                                                    <div class="slds-form-element slds-size_1-of-2">
+                                                        <div class="slds-form-element__control slds-p-right_small">
+                                                            <lightning:select label="Reason for Testing" 
+                                                                              value="{!v.participantKit.Reason_for_Testing__c}"
+                                                                              required="true">
+                                                                <aura:iteration items="{!v.picklists.Reason_for_Testing__c}" var="option">
+                                                                    <option value="{!option.value}">{!option.label}</option>
+                                                                </aura:iteration>
+                                                            </lightning:select>
+                                                        </div>
+                                                    </div>
+                                                </aura:if>
+                                                <aura:if isTrue="{!and(v.fieldCustomizations.Condition != null, v.fieldCustomizations.Condition.isVisible == true)}">
+                                                    <div class="slds-form-element slds-size_1-of-2">
+                                                        <div class="slds-form-element__control slds-p-right_small">
+                                                            <lightning:select label="{!v.fieldCustomizations.Condition.altLabel}" 
+                                                                              value="{!v.participantKit.Symptoms_Present__c}"
+                                                                              required="{!v.fieldCustomizations.Condition.isRequired}"
+                                                                              disabled="{!v.fieldCustomizations.Condition.isDisabled}">
+                                                                <aura:iteration items="{!v.picklists.Symptoms_Present__c}" var="option">
+                                                                    <option value="{!option.value}">{!option.label}</option>
+                                                                </aura:iteration>
+                                                            </lightning:select>
+                                                        </div>
+                                                    </div>
+                                                </aura:if>
+                                                <aura:if isTrue="{!v.fieldCustomizations.Condition == null}">
+                                                    <div class="slds-form-element slds-size_1-of-2">
+                                                        <div class="slds-form-element__control slds-p-right_small">
+                                                            <lightning:select label="Condition" 
+                                                                              value="{!v.participantKit.Symptoms_Present__c}"
+                                                                              required="true">
+                                                                <aura:iteration items="{!v.picklists.Symptoms_Present__c}" var="option">
+                                                                    <option value="{!option.value}">{!option.label}</option>
+                                                                </aura:iteration>
+                                                            </lightning:select>
+                                                        </div>
+                                                    </div>
+                                                </aura:if>
+                                            </div>
+                                        </div>
+                                        <div class="slds-form-element__group">
+                                            <div class="slds-form-element__row slds-grid">
+                                                <aura:if isTrue="{!and(v.fieldCustomizations.Temperature != null, v.fieldCustomizations.Temperature.isVisible == true)}">
+                                                    <div class="slds-form-element slds-size_1-of-2">
+                                                        <div class="slds-form-element__control slds-p-right_small">
+                                                            <br/>
+                                                            <lightning:input required="{!v.fieldCustomizations.Temperature.isRequired}"  
+                                                                             disabled="{!v.fieldCustomizations.Temperature.isDisabled}"
+                                                                             autocomplete="off" 
+                                                                             label="{!v.fieldCustomizations.Temperature.altLabel}" 
+                                                                             step="0.1" 
+                                                                             type="number" 
+                                                                             name="temperature" 
+                                                                             value="{!v.participantKit.Tempurature__c}"
+                                                                             message-when-step-mismatch='Please enter temperature with one decimal place (98.7)'></lightning:input>
+                                                        </div>
+                                                    </div>
+                                                </aura:if>
+                                                <aura:if isTrue="{!v.fieldCustomizations.Temperature == null}">
+                                                    <div class="slds-form-element slds-size_1-of-2">
+                                                        <div class="slds-form-element__control slds-p-right_small">
+                                                            <br/>
+                                                            <lightning:input required="true"  
+                                                                             autocomplete="off" 
+                                                                             label="Temperature (°F)" 
+                                                                             step="0.1" 
+                                                                             type="number" 
+                                                                             name="temperature" 
+                                                                             value="{!v.participantKit.Tempurature__c}"
+                                                                             message-when-step-mismatch='Please enter temperature with one decimal place (98.7)'></lightning:input>
+                                                        </div>
+                                                    </div>
+                                                </aura:if>
+                                                <aura:if isTrue="{!and(v.fieldCustomizations.Collection_Date != null, v.fieldCustomizations.Collection_Date.isVisible == true)}">
+                                                    <div class="slds-form-element slds-size_1-of-2">
+                                                        <div class="slds-form-element__control slds-p-right_small">
+                                                            <lightning:input type="datetime-local" datestyle="short" timeStyle="short" disabled="{v.fieldCustomizations.Collection_Date.isDisabled}" required="{v.fieldCustomizations.Collection_Date.isRequired}"  label="{v.fieldCustomizations.Collection_Date.altLabel}" value="{!v.participantKit.Collection_Date_Time__c}"/>
+                                                        </div>
+                                                    </div>
+                                                </aura:if>
+                                                <aura:if isTrue="{!v.fieldCustomizations.Collection_Date == null}">
+                                                    <div class="slds-form-element slds-size_1-of-2">
+                                                        <div class="slds-form-element__control slds-p-right_small">
+                                                            <lightning:input type="datetime-local" datestyle="short" timeStyle="short" required="true"  label="Collection Date" value="{!v.participantKit.Collection_Date_Time__c}"/>
+                                                        </div>
+                                                    </div>
+                                                </aura:if>
+                                            </div>
+                                        </div>
+                                        <div class="slds-form-element__group">
+                                            <div class="slds-form-element__row slds-grid">
+                                                <aura:if isTrue="{!and(v.fieldCustomizations.Approving_Provider != null, v.fieldCustomizations.Approving_Provider.isVisible == true)}">
+                                                    <div class="slds-form-element slds-size_1-of-2">
+                                                        <aura:if isTrue="{!v.isPhysicianSingle == true}">
+                                                            <div style="padding:1px;font-size: .95rem;">
+                                                                Approving Physician: <b>{!v.physicianName}</b>
+                                                            </div>
+                                                        </aura:if>
+                                                        <aura:if isTrue="{!v.isPhysicianSingle != true}">
+                                                            <div class="slds-form-element__control slds-p-right_small">
+                                                                <lightning:select label="Approving Physician" disabled="{v.fieldCustomizations.Approving_Provider.isDisabled}" required="{v.fieldCustomizations.Approving_Provider.isRequired}"
+                                                                                  value="{!v.participantKit.Approving_Provider__c}">
+                                                                    <aura:iteration items="{!v.picklists.Physician_Options}" var="option">
+                                                                        <option value="{!option.value}">{!option.label}</option>
+                                                                    </aura:iteration>
+                                                                </lightning:select>
+                                                            </div>
+                                                        </aura:if>
+                                                    </div>
+                                                </aura:if>
+                                                <aura:if isTrue="{!v.fieldCustomizations.Approving_Provider == null}">
+                                                    <div class="slds-form-element slds-size_1-of-2">
+                                                        <div class="slds-form-element__control slds-p-right_small">
+                                                            <lightning:select label="Approving Provider" required="true"
+                                                                              value="{!v.participantKit.Approving_Provider__c}">
+                                                                <aura:iteration items="{!v.picklists.Physician_Options}" var="option">
+                                                                    <option value="{!option.value}">{!option.label}</option>
+                                                                </aura:iteration>
+                                                            </lightning:select>
+                                                        </div>
+                                                    </div>
+                                                </aura:if>
+                                                
+                                                <div class="slds-form-element slds-size_1-of-2">
+                                                    
+                                                    <div class="slds-form-element__control slds-p-right_small">
+                                                        <aura:if isTrue="{!and(v.fieldCustomizations.Patient_Consent != null, v.fieldCustomizations.Patient_Consent.isVisible == true)}">
+                                                            <lightning:input  label="{!v.fieldCustomizations.Patient_Consent.altLabel}"
+                                                                             disabled="{!v.fieldCustomizations.Patient_Consent.isDisabled}"
+                                                                             checked="{!v.participantKit.Patient_Consent__c }" 
+                                                                             value="{!v.participantKit.Patient_Consent__c }" 
+                                                                             type="checkbox"
+                                                                             required="{!v.fieldCustomizations.Patient_Consent.isRequired}"
+                                                                             style="background-color:yellow"/>
+                                                        </aura:if>
+                                                        <aura:if isTrue="{!v.fieldCustomizations.Patient_Consent == null}">
+                                                            <lightning:input  label="Patient Consent"
+                                                                             checked="{!v.participantKit.Patient_Consent__c }" 
+                                                                             value="{!v.participantKit.Patient_Consent__c }" 
+                                                                             type="checkbox"
+                                                                             required="true"
+                                                                             style="background-color:yellow"/>
+                                                        </aura:if>
+                                                        <aura:if isTrue="{!and(v.fieldCustomizations.Photo_ID_Verified != null, v.fieldCustomizations.Photo_ID_Verified.isVisible == true)}">
+                                                            <lightning:input  label="{!v.fieldCustomizations.Photo_ID_Verified.altLabel}"
+                                                                             checked="{!v.participantKit.Photo_ID_Verified__c }" 
+                                                                             value="{!v.participantKit.Photo_ID_Verified__c }" 
+                                                                             type="checkbox"
+                                                                             required="{!v.fieldCustomizations.Photo_ID_Verified.isRequired}"
+                                                                             disabled="{!v.fieldCustomizations.Photo_ID_Verified.isDisabled}"
+                                                                             style="background-color:yellow"/>
+                                                        </aura:if>
+                                                        <aura:if isTrue="{!v.fieldCustomizations.Photo_ID_Verified == null}">
+                                                            <lightning:input  label="Photo ID Verified"
+                                                                             checked="{!v.participantKit.Photo_ID_Verified__c }" 
+                                                                             value="{!v.participantKit.Photo_ID_Verified__c }" 
+                                                                             type="checkbox"
+                                                                             required="true"
+                                                                             style="background-color:yellow"/>
+                                                        </aura:if>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </aura:if>
+                                </aura:if>
+                            </div>
+                            <br/>
+                        </fieldset>
+                        
+                    </aura:if>
+                    <aura:if isTrue="{!v.showAlertError}">
+                        <div class="slds-m-around_medium">
+                            <aura:iteration items="{!v.errorMessages}" var="err">
+                                <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error"
+                                     role="alert">
+                                    <span class="slds-assistive-text">error</span>
+                                    <span class="slds-icon_container slds-icon-utility-ban slds-m-right_x-small"
+                                          title="Description of icon when needed">
+                                        <lightning:icon iconName="utility:ban" variant="inverse" size="x-small">
+                                        </lightning:icon>
+                                    </span>
+                                    <h2>{!err.title}: {!err.message}</h2>
+                                </div>
+                            </aura:iteration>
+                        </div>
+                    </aura:if>
+                </div>
+                
+                <footer class="slds-modal__footer">
+                    <aura:if isTrue="{!v.showAlertError == true}">
+                        <div style="color:red;font-size:14px;font-weight:bold;width:100%;text-align:center">
+                            You have not completed the form.  Please scroll up or down to view messages.&nbsp;&nbsp;&nbsp;&nbsp;
+                        </div>
+                    </aura:if>
+                    <aura:if isTrue="{!v.participant != null}">
+                        <button class="slds-button slds-button_brand" onclick="{!c.doSaveRecord}">Save &amp; New Search</button>
+                    </aura:if>
+                    <button class="slds-button slds-button_destructive" onclick="{!c.closeModalParticipantSearch}">Close</button>
+                </footer>
+            </div>
+        </section>
+  
+        
+
+      
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </div>
+    
+          <!--Discard Kit pop-up window -->
+         <div aura:id="modalWindowDiscardKit" class="slds-hide">
+    <section role="dialog" tabindex="-1" aria-labelledby="discardKitModalWindowHeader" aria-describedby="discardKitModalWindowContent"
+             class="slds-modal slds-fade-in-open">
+        <div class="slds-modal__container">
+        <header class="slds-modal__header">
+            <h2 id="discardKitModalWindowHeader" class="slds-modal__title slds-hyphenate">
+                <div class="slds-col slds-has-flexi-truncate">
+                    <div class="slds-media slds-no-space slds-grow">
+                        <div class="slds-media__figure">
+                            <lightning:icon iconName="standard:product"></lightning:icon>
+                        </div>
+                        <div class="slds-media__body">
+                            <h1 class="slds-modal__title slds-hyphenate"
+                                title="Discard Kit">{!v.selectedKitLocator.Name}</h1>
+                        </div>
+                    </div>
+                </div>
+            </h2>
+            </header>
+            <div class="slds-modal__content slds-p-around_medium" id="discardKitModalWindowContent">
+                <div class="slds-form slds-form_stacked">
+                    <div class="slds-form-element__row slds-grid">
+                        <div class="slds-form-element slds-size_1-of-2">
+                            <div class="slds-form-element__control slds-p-right_small">
+                                <lightning:select
+                                                  label="Discarded Reason"
+                                                  required="true"
+                                                  onchange="{!c.doSelectDiscardedReason}"
+                                                  value="{!v.selectedKitLocator.Discarded_Reason__c}">
+                                    <aura:iteration items="{!v.picklists.Discarded_Reason__c}" var="option">
+                                        <option value="{!option.value}">{!option.label}</option>
+                                    </aura:iteration>
+                                </lightning:select><br/>
+                                 <aura:if isTrue="{!v.selectedKitLocator.Discarded_Reason__c == 'Other'}">
+                                    <lightning:input required="true"  autocomplete="off"  label="Other Discarded Details" maxlength="255" name="other_reason" value="{!v.selectedKitLocator.Other_Discarded_Details__c}"></lightning:input>  
+                               </aura:if>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer class="slds-modal__footer">
+                <button class="slds-button slds-button_brand" onclick="{!c.doSaveDiscardedKit}">Save Kit &amp; Close</button>
+                    <button class="slds-button slds-button_destructive" onclick="{!c.closeModalDiscardKit}" >Close</button>
+            </footer>
+        </div>
+    </section>
+    </div> 
+    
+    
+    
+    
+    
+</aura:component>
