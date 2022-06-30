@@ -1,6 +1,6 @@
 {
   "appPageId" : "88620d9b-9546-432c-8f0d-15cf2b7104e9",
-  "componentName" : "siteforce:sldsOneColLayout",
+  "componentName" : "siteforce:sldsThreeCol363Layout",
   "id" : "6529a148-1307-4b11-b450-b8a15ca2c2e4",
   "label" : "Register",
   "regions" : [ {
@@ -24,13 +24,13 @@
       "componentAttributes" : {
         "confirmPasswordLabel" : "Confirm Password",
         "emailLabel" : "Email",
-        "extraFieldsFieldSet" : "",
+        "extraFieldsFieldSet" : "Self_Registration_Fields",
         "firstnameLabel" : "First Name",
-        "includePasswordField" : false,
+        "includePasswordField" : true,
         "lastnameLabel" : "Last Name",
         "passwordLabel" : "Create Password",
         "regConfirmUrl" : "./CheckPasswordResetEmail",
-        "startUrl" : "",
+        "startUrl" : "//Home",
         "submitButtonLabel" : "Sign Up"
       },
       "componentName" : "salesforceIdentity:selfRegister2",
@@ -77,8 +77,24 @@
     "id" : "44d2e032-b1de-4426-aaaf-8d17e8c6b37f",
     "regionName" : "sfdcHiddenRegion",
     "type" : "region"
+  }, {
+    "id" : "ecbf17db-faf8-4016-bb61-ff0bcea56464",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "id" : "64f0449d-2cd7-4fe3-9654-8699c9585db2",
+    "regionName" : "sidebar",
+    "type" : "region"
+  }, {
+    "id" : "4e2bd8c6-68c0-42e0-a474-9b05365c8f2a",
+    "regionName" : "sidebarAlt",
+    "type" : "region"
+  }, {
+    "id" : "20fbf54d-34f0-4b59-b6b9-1cad47ddf879",
+    "regionName" : "footer",
+    "type" : "region"
   } ],
-  "themeLayoutType" : "Login",
+  "themeLayoutType" : "Home",
   "type" : "view",
   "viewType" : "self-register"
 }

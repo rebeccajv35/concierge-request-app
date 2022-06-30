@@ -58,7 +58,7 @@
     "regionName" : "sfdcHiddenRegion",
     "type" : "region"
   } ],
-  "themeLayoutType" : "Inner",
+  "themeLayoutType" : "Home",
   "type" : "view",
   "viewType" : "detail"
 }

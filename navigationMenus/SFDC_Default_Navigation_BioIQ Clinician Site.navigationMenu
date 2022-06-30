@@ -5,6 +5,9 @@
     <label>Default Navigation</label>
     <navigationMenuItem>
         <label>Concierge and Courier Request Form</label>
+        <menuItemBranding>
+            <tileImage>new_120</tileImage>
+        </menuItemBranding>
         <position>1</position>
         <publiclyAvailable>true</publiclyAvailable>
         <target>/concierge-and-courier-requests</target>
@@ -13,6 +16,9 @@
     <navigationMenuItem>
         <defaultListViewId>Active_Requests</defaultListViewId>
         <label>View Active Requests</label>
+        <menuItemBranding>
+            <tileImage>service_appointment_120</tileImage>
+        </menuItemBranding>
         <position>2</position>
         <publiclyAvailable>false</publiclyAvailable>
         <target>Testing_Request__c</target>
@@ -20,6 +26,9 @@
     </navigationMenuItem>
     <navigationMenuItem>
         <label>Register Test Kits</label>
+        <menuItemBranding>
+            <tileImage>visits_120</tileImage>
+        </menuItemBranding>
         <position>3</position>
         <publiclyAvailable>false</publiclyAvailable>
         <target>/register-tests</target>

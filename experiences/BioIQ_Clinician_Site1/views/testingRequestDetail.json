@@ -76,7 +76,7 @@
     "regionName" : "sidebar",
     "type" : "region"
   } ],
-  "themeLayoutType" : "Inner",
+  "themeLayoutType" : "Home",
   "type" : "view",
   "viewType" : "detail-a4k"
 }

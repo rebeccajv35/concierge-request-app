@@ -1,6 +1,6 @@
 {
   "appPageId" : "88620d9b-9546-432c-8f0d-15cf2b7104e9",
-  "componentName" : "siteforce:sldsOneColLayout",
+  "componentName" : "siteforce:sldsThreeCol363Layout",
   "id" : "8fb2fefc-ec86-4b6d-896b-7d235e536df3",
   "label" : "Login",
   "regions" : [ {
@@ -38,30 +38,10 @@
       "type" : "component"
     }, {
       "componentAttributes" : {
-        "richTextValue" : "<p><a href=\"/bioiq/s/login/ForgotPassword\" target=\"_self\">Forgot your password?</a></p>"
+        "richTextValue" : "<p><a href=\"/bioiq/s/login/ForgotPassword\" rel=\"noopener noreferrer\" target=\"_self\">Forgot your password?</a></p><p><br></p><p><a href=\"/bioiq/s/login/Register\" rel=\"noopener noreferrer\" target=\"_self\">R</a><a href=\"/login/Register\" rel=\"noopener noreferrer\" target=\"_blank\">egister</a></p>"
       },
       "componentName" : "forceCommunity:richTextInline",
       "id" : "4d3734f2-ac9c-45d2-8237-416c1cfde6c8",
-      "renderPriority" : "NEUTRAL",
-      "renditionMap" : { },
-      "type" : "component"
-    }, {
-      "componentAttributes" : {
-        "headerText" : "",
-        "showHeader" : false,
-        "useCommunityDomainSso" : false
-      },
-      "componentName" : "salesforceIdentity:socialLogin2",
-      "id" : "9fddb89b-fb91-4554-a10f-e3b37415656b",
-      "renderPriority" : "NEUTRAL",
-      "renditionMap" : { },
-      "type" : "component"
-    }, {
-      "componentAttributes" : {
-        "employeeLoginLinkLabel" : "Are you an employee? Login here"
-      },
-      "componentName" : "salesforceIdentity:employeeLoginLink2",
-      "id" : "991686ea-6e1f-4df4-ab09-bf3762fb7412",
       "renderPriority" : "NEUTRAL",
       "renditionMap" : { },
       "type" : "component"
@@ -84,8 +64,24 @@
     "id" : "a3e47cfe-d110-408e-93bc-82f52f35ad78",
     "regionName" : "sfdcHiddenRegion",
     "type" : "region"
+  }, {
+    "id" : "f4e01c32-4534-4715-8d3e-5ba699cdfb4b",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "id" : "72ca7d59-12dd-4c19-8cbe-a4927aa09977",
+    "regionName" : "sidebar",
+    "type" : "region"
+  }, {
+    "id" : "ebc498ff-e4f7-437e-b51d-feeaac8c69f9",
+    "regionName" : "sidebarAlt",
+    "type" : "region"
+  }, {
+    "id" : "da9dfd9b-4b39-4d87-be55-7537bafccec2",
+    "regionName" : "footer",
+    "type" : "region"
   } ],
-  "themeLayoutType" : "Login",
+  "themeLayoutType" : "Home",
   "type" : "view",
   "viewType" : "login-home"
 }

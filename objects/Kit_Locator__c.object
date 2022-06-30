@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <fullName>Discarded_Reason__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Sample Issues may include blood in the saliva, eating before giving the sample, etc.</inlineHelpText>
+        <label>Discarded Reason</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Defective Kit</fullName>
+                    <default>false</default>
+                    <label>Defective Kit</label>
+                </value>
+                <value>
+                    <fullName>Sample Issue</fullName>
+                    <default>false</default>
+                    <label>Sample Issue</label>
+                </value>
+                <value>
+                    <fullName>Other</fullName>
+                    <default>false</default>
+                    <label>Other</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Discarded__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Discarded</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Other_Discarded_Details__c</fullName>
+        <description>required if the other option is selected</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Please provide details about why the test is being discarded</inlineHelpText>
+        <label>Other Discarded Details</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+</CustomObject>

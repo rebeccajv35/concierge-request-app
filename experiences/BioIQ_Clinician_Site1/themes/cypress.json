@@ -295,7 +295,7 @@
         "regions" : [ {
           "components" : [ {
             "componentAttributes" : {
-              "buttonBackgroundColor" : "inherit",
+              "buttonBackgroundColor" : "rgb(171, 184, 195)",
               "buttonBackgroundHoverColor" : "inherit",
               "buttonBorderColor" : "transparent",
               "buttonBorderRadius" : 5,
@@ -303,7 +303,7 @@
               "buttonTextColor" : "#fff",
               "buttonTextHoverColor" : "#0099de",
               "customizableUserProfileMenuEditor" : "Default_User_Profile_Menu",
-              "menuStyleSettings" : ""
+              "menuStyleSettings" : "{\"selectedMenuStyleSetting\":\"iconAndName\",\"selectedIconSetting\":\"userAvatar\",\"includeCompanyName\":false,\"selectedTextOrientationSetting\":\"right\"}"
             },
             "componentName" : "forceCommunity:customizableUserProfileMenu",
             "id" : "6a91d866-d2e8-4ef1-8a46-8ecfadcde88e",

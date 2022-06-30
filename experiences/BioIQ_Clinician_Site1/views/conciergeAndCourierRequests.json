@@ -106,7 +106,7 @@
     "regionName" : "sfdcHiddenRegion",
     "type" : "region"
   } ],
-  "themeLayoutType" : "Inner",
+  "themeLayoutType" : "Home",
   "type" : "view",
   "viewType" : "custom-concierge-and-courier-requests"
 }

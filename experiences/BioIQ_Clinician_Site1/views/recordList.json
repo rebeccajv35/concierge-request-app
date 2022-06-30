@@ -39,7 +39,7 @@
     "regionName" : "footer",
     "type" : "region"
   } ],
-  "themeLayoutType" : "Inner",
+  "themeLayoutType" : "Home",
   "type" : "view",
   "viewType" : "list"
 }

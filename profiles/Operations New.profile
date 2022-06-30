@@ -5,108 +5,144 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>AddOrInsertRecord</apexClass>
-        <enabled>true</enabled>
+        <apexClass>AdHocOrderInfo</apexClass>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>AssertionIterators</apexClass>
-        <enabled>true</enabled>
+        <apexClass>AdHocPrintOrderTriggerTest</apexClass>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>CollectionCalculate</apexClass>
-        <enabled>true</enabled>
+        <apexClass>AdminUtility</apexClass>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>CollectionProcessorsUtils</apexClass>
-        <enabled>true</enabled>
+        <apexClass>CaseRecordTypeSelectorController</apexClass>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>CopyCollection</apexClass>
-        <enabled>true</enabled>
+        <apexClass>CaseRecordTypeSelectorControllerTest</apexClass>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>CountRecordsAndFields</apexClass>
-        <enabled>true</enabled>
+        <apexClass>CaseUpdatedTriggerTest</apexClass>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>DedupeRecordCollection</apexClass>
-        <enabled>true</enabled>
+        <apexClass>ChangePasswordController</apexClass>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>DeepClone</apexClass>
-        <enabled>true</enabled>
+        <apexClass>ChangePasswordControllerTest</apexClass>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>EvaluateFormula</apexClass>
-        <enabled>true</enabled>
+        <apexClass>CheckRecursion</apexClass>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>ExtractStringsFromCollection</apexClass>
-        <enabled>true</enabled>
+        <apexClass>CheckRecursionTest</apexClass>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>ExtractStringsFromCollectionTest</apexClass>
-        <enabled>true</enabled>
+        <apexClass>CommunitiesLandingController</apexClass>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>FilterByCollection</apexClass>
-        <enabled>true</enabled>
+        <apexClass>CommunitiesLandingControllerTest</apexClass>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>FilterCollection</apexClass>
-        <enabled>true</enabled>
+        <apexClass>CommunitiesLoginController</apexClass>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>FindCommonAndUniqueRecords</apexClass>
-        <enabled>true</enabled>
+        <apexClass>CommunitiesLoginControllerTest</apexClass>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>FindCommonAndUniqueRecordsTest</apexClass>
-        <enabled>true</enabled>
+        <apexClass>CommunitiesSelfRegConfirmController</apexClass>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>FindRecordsInCollection</apexClass>
-        <enabled>true</enabled>
+        <apexClass>CommunitiesSelfRegConfirmControllerTest</apexClass>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>GenerateCollectionReport</apexClass>
-        <enabled>true</enabled>
+        <apexClass>CommunitiesSelfRegController</apexClass>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>GetChildCollection</apexClass>
-        <enabled>true</enabled>
+        <apexClass>CommunitiesSelfRegControllerTest</apexClass>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>GetFirst</apexClass>
-        <enabled>true</enabled>
+        <apexClass>ForgotPasswordController</apexClass>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>GetFirstTest</apexClass>
-        <enabled>true</enabled>
+        <apexClass>ForgotPasswordControllerTest</apexClass>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>GetLookupCollection</apexClass>
-        <enabled>true</enabled>
+        <apexClass>FormInfo</apexClass>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>GetRecordsFromIds</apexClass>
-        <enabled>true</enabled>
+        <apexClass>KitLocatorControllerClass</apexClass>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>GetRecordsFromIdsTest</apexClass>
-        <enabled>true</enabled>
+        <apexClass>LCFormHelper</apexClass>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>JoinCollections</apexClass>
-        <enabled>true</enabled>
+        <apexClass>LCFormsTest</apexClass>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>ListActionsTest</apexClass>
-        <enabled>true</enabled>
+        <apexClass>LTObjectLookupController</apexClass>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>MapCollection</apexClass>
-        <enabled>true</enabled>
+        <apexClass>LTObjectLookupControllerTest</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>LTsObjectResult</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>LightningForgotPasswordController</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>LightningForgotPasswordControllerTest</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>LightningSelfRegisterController</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>LightningSelfRegisterControllerTest</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>LightningUtil</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>MassUpdateSimpleController</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>MassUpdateSimpleControllerTest</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>MassUpdater</apexClass>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>MicrobatchSelfRegController</apexClass>
@@ -117,32 +153,112 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>MyProfilePageController</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>MyProfilePageControllerTest</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>OppLineItemTriggerHandler</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>OppPusherTests</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>OpportunityCleanupSchedulable</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>OpportunityCleanupSchedulableTest</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>OpportunityTest</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>OpportunityTriggerHandler</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>ParticipantKitQuickController</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>QueryWithLimit</apexClass>
-        <enabled>true</enabled>
+        <apexClass>ParticipantKitQuickControllerTest</apexClass>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>RemoveRecordInCollection</apexClass>
-        <enabled>true</enabled>
+        <apexClass>ProgramDesignTriggerHandler</apexClass>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>SObjectDeepClone</apexClass>
-        <enabled>true</enabled>
+        <apexClass>ProgramDesignTriggerTest</apexClass>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>SObjectDeepCloneTests</apexClass>
-        <enabled>true</enabled>
+        <apexClass>RHX_TEST_Program_Project</apexClass>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>SortCollection</apexClass>
-        <enabled>true</enabled>
+        <apexClass>RHX_TEST_Quota</apexClass>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>SortCollectionTest</apexClass>
-        <enabled>true</enabled>
+        <apexClass>RHX_TEST_Sales_Invoice</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>RefreshParentQuotaSchedulable</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>RefreshParentQuotaTest</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>RefreshQuotaSchedulable</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>RefreshQuotaTest</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>RelatedKitsController</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>ReviewItemTriggerHandler</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>SiteLoginController</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>SiteLoginControllerTest</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>SiteRegisterController</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>SiteRegisterControllerTest</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>TestUpdateOpps</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>TriggerHandler</apexClass>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>UpdateRecordTimeValue</apexClass>
@@ -153,465 +269,169 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>UpsertRecords</apexClass>
-        <enabled>true</enabled>
+        <apexClass>UpdateRevSchedules</apexClass>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>UpsertRecordsTest</apexClass>
-        <enabled>true</enabled>
+        <apexClass>UpdateRevSchedulesTest</apexClass>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>customSearchContactsLWC</apexClass>
         <enabled>false</enabled>
     </classAccesses>
+    <classAccesses>
+        <apexClass>ers_DatatableController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>ers_DatatableControllerTest</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>ers_EncodeDecodeURL</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>ers_EncodeDecodeURLTest</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>ers_QueryNRecords</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>ers_QueryNRecordsTest</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>slack_tst_Kit_Locator</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
     <custom>true</custom>
     <fieldPermissions>
-        <editable>false</editable>
-        <field>Contact.Testing_Request__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
         <editable>true</editable>
-        <field>FlowPersonalConfiguration__c.ActorId__c</field>
+        <field>Kit_Locator__c.Discarded_Reason__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>FlowPersonalConfiguration__c.Config1Name__c</field>
+        <field>Kit_Locator__c.Discarded__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>FlowPersonalConfiguration__c.Config1Value__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>FlowPersonalConfiguration__c.Config2Name__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>FlowPersonalConfiguration__c.Config2Value__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>FlowPersonalConfiguration__c.Config3Name__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>FlowPersonalConfiguration__c.Config3Value__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>FlowPersonalConfiguration__c.Config4Name__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>FlowPersonalConfiguration__c.Config4Value__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>FlowPersonalConfiguration__c.Config5Name__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>FlowPersonalConfiguration__c.Config5Value__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>FlowPersonalConfiguration__c.Config6Name__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>FlowPersonalConfiguration__c.Config6Value__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>FlowPersonalConfiguration__c.Config7Name__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>FlowPersonalConfiguration__c.Config7Value__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>FlowPersonalConfiguration__c.Config8Name__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>FlowPersonalConfiguration__c.Config8Value__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>FlowPersonalConfiguration__c.Config9Name__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>FlowPersonalConfiguration__c.Config9Value__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>FlowPersonalConfiguration__c.LocationId__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>FlowTableViewDefinition__c.Active__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>FlowTableViewDefinition__c.Alignments__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>FlowTableViewDefinition__c.Cell_Attributes__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>FlowTableViewDefinition__c.Edits__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>FlowTableViewDefinition__c.Field_API_Names__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>FlowTableViewDefinition__c.Field_Sorting__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>FlowTableViewDefinition__c.Filters__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>FlowTableViewDefinition__c.Icons__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>FlowTableViewDefinition__c.Labels__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>FlowTableViewDefinition__c.Other_Attributes__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>FlowTableViewDefinition__c.Type_Attributes__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>FlowTableViewDefinition__c.Widths__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>FlowTableViewDefinition__c.Wraps__c</field>
+        <field>Kit_Locator__c.Other_Discarded_Details__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Participant_Test_Request__c.Alternate_Name_and_Contact_Info__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Participant_Test_Request__c.Date_Result_Needed__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Participant_Test_Request__c.Device_ID__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Participant_Test_Request__c.Locator_ID__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Participant_Test_Request__c.Test_Date__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Participant_Test_Request__c.Test_Time__c</field>
+        <field>Program_Participant__c.Participant_Contact_id__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Testing_Request__c.Account_Company__c</field>
+        <field>Testing_Request__c.DropOffAddress_State__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Testing_Request__c.BioIQ_Status__c</field>
+        <field>Testing_Request__c.DropOffAddress_Street__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Testing_Request__c.Client__c</field>
+        <field>Testing_Request__c.DropOffAddress_ZipCode__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Testing_Request__c.Clinician_2_Cell_Phone__c</field>
+        <field>Testing_Request__c.DropoffAddress_City__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Testing_Request__c.Clinician_2_Name__c</field>
+        <field>Testing_Request__c.PickupAddress_City__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Testing_Request__c.Clinician_Cell_Phone__c</field>
+        <field>Testing_Request__c.PickupAddress_State__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Testing_Request__c.Clinician_Confirmed__c</field>
+        <field>Testing_Request__c.PickupAddress_Street__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Testing_Request__c.Clinician_Name__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Testing_Request__c.Clinician_Onsite__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Testing_Request__c.Clinician_Partner__c</field>
+        <field>Testing_Request__c.PickupAddress_ZipCode__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Testing_Request__c.Clinician_Required__c</field>
+        <field>ers_datatableConfig__c.Active__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Testing_Request__c.Clinician_Status__c</field>
+        <field>ers_datatableConfig__c.Alignments__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Testing_Request__c.Comments_for_Clinician__c</field>
+        <field>ers_datatableConfig__c.Cell_Attributes__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Testing_Request__c.Concierge_Courier_Options__c</field>
+        <field>ers_datatableConfig__c.Edits__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Testing_Request__c.Concierge_Test_Kit_Sample_Drop_off__c</field>
+        <field>ers_datatableConfig__c.Filters__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Testing_Request__c.Courier_Drop_Off_Address__c</field>
+        <field>ers_datatableConfig__c.Icons__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Testing_Request__c.Courier_Drop_Off_Contact__c</field>
+        <field>ers_datatableConfig__c.Labels__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Testing_Request__c.Courier_Needed__c</field>
+        <field>ers_datatableConfig__c.Other_Attributes__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Testing_Request__c.Courier_Pickup_Date_Time_UTC__c</field>
+        <field>ers_datatableConfig__c.Type_Attributes__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Testing_Request__c.Courier_Pickup_Date__c</field>
+        <field>ers_datatableConfig__c.Widths__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Testing_Request__c.Courier_Pickup_Time_Zone__c</field>
+        <field>ers_datatableConfig__c.Wraps__c</field>
         <readable>false</readable>
     </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Testing_Request__c.Courier_Point_of_Contact_Cell_Phone__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Testing_Request__c.Courier_Requestor__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Testing_Request__c.Courier_Scenario__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Testing_Request__c.Courier__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Testing_Request__c.Date_Results_Needed__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Testing_Request__c.Drop_Off_Point_of_Contact_Cell_Phone__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Testing_Request__c.Expedite_Testing__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Testing_Request__c.File_Name__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Testing_Request__c.File_Uploaded__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Testing_Request__c.Lab_Drop_off__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Testing_Request__c.Lab_ETA__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Testing_Request__c.Lab_and_Test_Type__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Testing_Request__c.Number_of_Tests__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Testing_Request__c.Onsite_Pickup_Point_of_Contact__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Testing_Request__c.Pickup_Address__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Testing_Request__c.Requested_Courier_Pickup_Time__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Testing_Request__c.Requestor_Cell_Phone__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Testing_Request__c.Requestor_Email__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Testing_Request__c.Requestor_Name__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Testing_Request__c.Sample_Quantity__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Testing_Request__c.Test_Date_Time__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Testing_Request__c.Test_Date__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Testing_Request__c.Test_Time_Zone__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Testing_Request__c.Test_Time__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Testing_Request__c.Testing_Date_Time_UTC_Formula__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <layoutAssignments>
-        <layout>Account-Account - Operations View</layout>
-    </layoutAssignments>
-    <layoutAssignments>
-        <layout>Account_Company__c-Account Company Layout</layout>
-    </layoutAssignments>
-    <layoutAssignments>
-        <layout>FlowPersonalConfiguration__c-Flow Personal Configuration Layout</layout>
-    </layoutAssignments>
-    <layoutAssignments>
-        <layout>FlowTableViewDefinition__c-FlowTableViewDefinition Layout</layout>
-    </layoutAssignments>
     <layoutAssignments>
         <layout>Kit_Locator__c-Kit Locator Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Participant_Test_Request__c-Participant Test Request Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Program_Participant__c-Program Participant Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Testing_Request__c-Customer  - Courier Only - View</layout>
@@ -633,34 +453,8 @@
         <object>Contact</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
-    <objectPermissions>
-        <allowCreate>true</allowCreate>
-        <allowDelete>true</allowDelete>
-        <allowEdit>true</allowEdit>
-        <allowRead>true</allowRead>
-        <modifyAllRecords>false</modifyAllRecords>
-        <object>FlowPersonalConfiguration__c</object>
-        <viewAllRecords>false</viewAllRecords>
-    </objectPermissions>
-    <objectPermissions>
-        <allowCreate>true</allowCreate>
-        <allowDelete>true</allowDelete>
-        <allowEdit>true</allowEdit>
-        <allowRead>true</allowRead>
-        <modifyAllRecords>false</modifyAllRecords>
-        <object>FlowTableViewDefinition__c</object>
-        <viewAllRecords>false</viewAllRecords>
-    </objectPermissions>
     <pageAccesses>
         <apexPage>MicrobatchSelfReg</apexPage>
-        <enabled>false</enabled>
-    </pageAccesses>
-    <pageAccesses>
-        <apexPage>ProgramProjectsJiraIssuesPage</apexPage>
-        <enabled>false</enabled>
-    </pageAccesses>
-    <pageAccesses>
-        <apexPage>fsc_screenFlow</apexPage>
         <enabled>false</enabled>
     </pageAccesses>
     <recordTypeVisibilities>
